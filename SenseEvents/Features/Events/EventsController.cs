@@ -1,6 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SenseEvents.Features.Events.AddEvent;
+using SenseEvents.Features.Events.GetEvents;
+using SenseEvents.Infrastructure.Middleware;
 
 namespace SenseEvents.Features.Events
 {
@@ -17,16 +19,19 @@ namespace SenseEvents.Features.Events
 
 
         [HttpGet]
-        public IEnumerable<string> Get()
+        [ProducesResponseType(200, Type = typeof(GetEventsResponse))]
+        public async Task<IActionResult> Get()
         {
-            throw new NotImplementedException();
+            var events = await _mediator.Send(new GetEventsQuery());
+            return Ok(events);
         }
 
         [HttpPost]
+        [ProducesResponseType(200, Type = typeof(AddEventResponse))]
+        [ProducesResponseType(400, Type = typeof(ErrorResponse))]
         public async Task<IActionResult> AddEvent([FromBody] AddEventCommand command)
         {
             var eventId = await _mediator.Send(command);
-
             return Ok(eventId);
         }
 

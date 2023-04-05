@@ -34,5 +34,10 @@ namespace SenseEvents.Features.Events
 
             return id;
         }
+
+        public async Task<IEnumerable<Event>> GetEvents()
+        {
+            return await Task.Run(() => _events.AsEnumerable());
+        }
     }
 }
