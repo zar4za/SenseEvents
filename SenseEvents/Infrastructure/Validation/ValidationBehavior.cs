@@ -2,7 +2,7 @@
 using MediatR;
 using SenseEvents.Infrastructure.Messaging;
 
-namespace SenseEvents.Infrastructure.Middleware
+namespace SenseEvents.Infrastructure.Validation
 {
     public class ValidationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
         where TRequest : class, ICommand<TResponse>

@@ -2,7 +2,7 @@ using FluentValidation;
 using MediatR;
 using SenseEvents.Features.Events;
 using SenseEvents.Features.Id;
-using SenseEvents.Infrastructure.Middleware;
+using SenseEvents.Infrastructure.Validation;
 
 var builder = WebApplication.CreateBuilder(args);
 

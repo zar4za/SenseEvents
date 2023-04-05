@@ -1,4 +1,4 @@
-﻿namespace SenseEvents.Infrastructure.Middleware
+﻿namespace SenseEvents.Infrastructure.Validation
 {
     public class ErrorResponse
     {

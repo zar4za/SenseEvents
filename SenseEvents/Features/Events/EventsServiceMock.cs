@@ -39,5 +39,10 @@ namespace SenseEvents.Features.Events
         {
             return await Task.Run(() => _events.AsEnumerable());
         }
+
+        public async Task<Event?> GetEvent(Guid id)
+        {
+            return await Task.Run(() => _events.FirstOrDefault(e => e.Id == id));
+        }
     }
 }
