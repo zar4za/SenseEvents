@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using SenseEvents.Features.Events.AddEvent;
 
 namespace SenseEvents.Features.Events
 {
@@ -6,6 +8,14 @@ namespace SenseEvents.Features.Events
     [ApiController]
     public class EventsController : ControllerBase
     {
+        private readonly IMediator _mediator;
+
+        public EventsController(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
+
+
         [HttpGet]
         public IEnumerable<string> Get()
         {
@@ -13,9 +23,11 @@ namespace SenseEvents.Features.Events
         }
 
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<IActionResult> AddEvent([FromBody] AddEventCommand command)
         {
-            throw new NotImplementedException();
+            var eventId = await _mediator.Send(command);
+
+            return Ok(eventId);
         }
 
         [HttpPut("{id}")]
