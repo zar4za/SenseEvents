@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SenseEvents.Features.Events.AddEvent;
+using SenseEvents.Features.Events.DeleteEvent;
 using SenseEvents.Features.Events.GetEvents;
 using SenseEvents.Features.Events.UpdateEvent;
 using SenseEvents.Infrastructure.Validation;
@@ -36,7 +37,7 @@ namespace SenseEvents.Features.Events
             return Ok(eventId);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{id:guid}")]
         public async Task<IActionResult> UpdateEvent(Guid id, [FromBody] UpdateEventRequest request)
         {
             var command = new UpdateEventCommand()
@@ -50,14 +51,20 @@ namespace SenseEvents.Features.Events
                 SpaceId = request.SpaceId
             };
 
-            await _mediator.Send(command);
-            return Ok();
+            var success = await _mediator.Send(command);
+            return Ok(success);
         }
 
-        [HttpDelete("{id}")]
-        public void Delete(Guid id)
+        [HttpDelete("{id:guid}")]
+        public async Task<IActionResult> DeleteEvent(Guid id)
         {
-            throw new NotImplementedException();
+            var command = new DeleteEventCommand()
+            {
+                Id = id
+            };
+
+            var success = await _mediator.Send(command);
+            return Ok(success);
         }
     }
 }

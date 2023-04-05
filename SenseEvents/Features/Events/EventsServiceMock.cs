@@ -1,4 +1,5 @@
 ﻿using SenseEvents.Features.Events.AddEvent;
+using SenseEvents.Features.Events.DeleteEvent;
 using SenseEvents.Features.Id;
 
 namespace SenseEvents.Features.Events
@@ -43,6 +44,14 @@ namespace SenseEvents.Features.Events
         public async Task<Event?> GetEvent(Guid id)
         {
             return await Task.Run(() => _events.FirstOrDefault(e => e.Id == id));
+        }
+
+        public async Task<bool> DeleteEvent(DeleteEventCommand command)
+        {
+            return await Task.Run(() =>
+            {
+                return _events.RemoveAll(e => e.Id == command.Id) > 0;
+            });
         }
     }
 }
