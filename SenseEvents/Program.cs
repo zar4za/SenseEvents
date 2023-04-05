@@ -1,9 +1,8 @@
 using FluentValidation;
 using MediatR;
-using Microsoft.AspNetCore.Hosting;
 using SenseEvents.Features.Events;
 using SenseEvents.Features.Id;
-using SenseEvents.Infrastructure.Messaging;
+using SenseEvents.Infrastructure.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +18,7 @@ builder.Services.AddSingleton<IEventsService, EventsServiceMock>();
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
 builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly, ServiceLifetime.Transient);
+builder.Services.AddTransient<ValidationExceptionHandlingMiddleware>();
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -29,4 +29,5 @@ if (app.Environment.IsDevelopment())
 
 app.UseAuthorization();
 app.MapControllers();
+app.UseMiddleware<ValidationExceptionHandlingMiddleware>();
 app.Run();

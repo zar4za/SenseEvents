@@ -1,7 +1,8 @@
 ﻿using FluentValidation;
 using MediatR;
+using SenseEvents.Infrastructure.Messaging;
 
-namespace SenseEvents.Infrastructure.Messaging
+namespace SenseEvents.Infrastructure.Middleware
 {
     public class ValidationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
         where TRequest : class, ICommand<TResponse>
@@ -24,7 +25,7 @@ namespace SenseEvents.Infrastructure.Messaging
 
             if (failures.Any())
             {
-                throw new ValidationException("VALIDATION EXCEPTION");
+                throw new ValidationException("There was an error while validating request.", failures);
             }
 
             return await next();
