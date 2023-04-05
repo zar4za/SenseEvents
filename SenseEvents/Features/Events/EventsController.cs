@@ -38,6 +38,8 @@ namespace SenseEvents.Features.Events
         }
 
         [HttpPut("{id:guid}")]
+        [ProducesResponseType(200, Type = typeof(UpdateEventResponse))]
+        [ProducesResponseType(400, Type = typeof(ErrorResponse))]
         public async Task<IActionResult> UpdateEvent(Guid id, [FromBody] UpdateEventRequest request)
         {
             var command = new UpdateEventCommand()
@@ -56,6 +58,8 @@ namespace SenseEvents.Features.Events
         }
 
         [HttpDelete("{id:guid}")]
+        [ProducesResponseType(200, Type = typeof(DeleteEventResponse))]
+        [ProducesResponseType(400, Type = typeof(ErrorResponse))]
         public async Task<IActionResult> DeleteEvent(Guid id)
         {
             var command = new DeleteEventCommand()
