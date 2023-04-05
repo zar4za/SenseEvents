@@ -1,7 +1,6 @@
-﻿using System.Text.Json;
-using FluentValidation;
+﻿using FluentValidation;
 
-namespace SenseEvents.Infrastructure.Middleware
+namespace SenseEvents.Infrastructure.Validation
 {
     public class ValidationExceptionHandlingMiddleware : IMiddleware
     {

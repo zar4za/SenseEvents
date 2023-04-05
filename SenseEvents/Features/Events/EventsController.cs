@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SenseEvents.Features.Events.AddEvent;
 using SenseEvents.Features.Events.GetEvents;
+using SenseEvents.Features.Events.UpdateEvent;
 using SenseEvents.Infrastructure.Middleware;
 
 namespace SenseEvents.Features.Events
@@ -20,7 +21,7 @@ namespace SenseEvents.Features.Events
 
         [HttpGet]
         [ProducesResponseType(200, Type = typeof(GetEventsResponse))]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> GetEvents()
         {
             var events = await _mediator.Send(new GetEventsQuery());
             return Ok(events);
@@ -36,9 +37,21 @@ namespace SenseEvents.Features.Events
         }
 
         [HttpPut("{id}")]
-        public void Put(Guid id)
+        public async Task<IActionResult> UpdateEvent(Guid id, [FromBody] UpdateEventRequest request)
         {
-            throw new NotImplementedException();
+            var command = new UpdateEventCommand()
+            {
+                Id = id,
+                StartUtc = request.StartUtc,
+                EndUtc = request.EndUtc,
+                Name = request.Name,
+                Description = request.Description,
+                ImageId = request.ImageId,
+                SpaceId = request.SpaceId
+            };
+
+            await _mediator.Send(command);
+            return Ok();
         }
 
         [HttpDelete("{id}")]

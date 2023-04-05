@@ -7,5 +7,7 @@ namespace SenseEvents.Features.Events
         Task<Guid> AddEvent(AddEventCommand command);
 
         Task<IEnumerable<Event>> GetEvents();
+
+        Task<Event?> GetEvent(Guid id);
     }
 }
