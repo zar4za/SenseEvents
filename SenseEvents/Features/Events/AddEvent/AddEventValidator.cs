@@ -4,7 +4,7 @@ namespace SenseEvents.Features.Events.AddEvent
 {
     public class AddEventValidator : AbstractValidator<AddEventCommand>
     {
-        public AddEventValidator()
+        public AddEventValidator(IImageService images, ISpaceService spaces)
         {
             RuleFor(e => e.StartUtc).NotEmpty();
             RuleFor(e => e.EndUtc)
@@ -16,8 +16,15 @@ namespace SenseEvents.Features.Events.AddEvent
                 .MaximumLength(64);
 
             RuleFor(e => e.Description).MaximumLength(1024);
-            RuleFor(e => e.ImageId).NotEmpty();
-            RuleFor(e => e.SpaceId).NotEmpty();
+            RuleFor(e => e.ImageId)
+                .NotEmpty()
+                .Must(images.ImageExists)
+                .WithMessage(e => $"Изображения с Id '{e}' не существует.");
+
+            RuleFor(e => e.SpaceId)
+                .NotEmpty()
+                .Must(spaces.SpaceExists)
+                .WithMessage(e => $"Изображения с Id '{e}' не существует.");
         }
     }
 }

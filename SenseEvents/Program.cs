@@ -11,9 +11,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-//singleton т.к. сервисы - заглушки
+//singleton т.к. эти сервисы - заглушки, которые хранят состояние
 builder.Services.AddSingleton<IGuidService, GuidService>();
 builder.Services.AddSingleton<IEventsService, EventsServiceMock>();
+builder.Services.AddTransient<IImageService, ImageServiceMock>();
+builder.Services.AddTransient<ISpaceService, SpaceServiceMock>();
 
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
