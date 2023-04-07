@@ -1,4 +1,4 @@
-﻿namespace SenseEvents.Features.Id
+﻿namespace SenseEvents.Infrastructure.Identity
 {
     public class GuidService : IGuidService
     {
