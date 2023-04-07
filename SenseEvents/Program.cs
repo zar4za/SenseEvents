@@ -21,7 +21,10 @@ builder.Services.AddSingleton<IEventsService, EventsServiceMock>();
 builder.Services.AddTransient<IImageService, ImageServiceMock>();
 builder.Services.AddTransient<ISpaceService, SpaceServiceMock>();
 
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
+builder.Services.AddMediatR(options =>
+{
+    options.RegisterServicesFromAssembly(typeof(Program).Assembly);
+});
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
 builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly, ServiceLifetime.Transient);
 builder.Services.AddTransient<ValidationExceptionHandlingMiddleware>();
