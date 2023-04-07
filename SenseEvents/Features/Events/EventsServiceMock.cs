@@ -1,6 +1,6 @@
 ﻿using SenseEvents.Features.Events.AddEvent;
 using SenseEvents.Features.Events.DeleteEvent;
-using SenseEvents.Features.Id;
+using SenseEvents.Infrastructure.Identity;
 
 namespace SenseEvents.Features.Events
 {
