@@ -1,8 +1,8 @@
-﻿using SenseEvents.Infrastructure.Messaging;
+﻿using MediatR;
 
 namespace SenseEvents.Features.Events.GetEvents
 {
-    public class GetEventsQuery : IQuery<GetEventsResponse>
+    public class GetEventsQuery : IRequest<GetEventsResponse>
     {
         public GetEventsQuery() { }
     }

@@ -1,8 +1,8 @@
-﻿using SenseEvents.Infrastructure.Messaging;
+﻿using MediatR;
 
 namespace SenseEvents.Features.Events.GetEvents
 {
-    public class GetEventsHandler : IQueryHandler<GetEventsQuery, GetEventsResponse>
+    public class GetEventsHandler : IRequestHandler<GetEventsQuery, GetEventsResponse>
     {
         private readonly IEventsService _eventsService;
 

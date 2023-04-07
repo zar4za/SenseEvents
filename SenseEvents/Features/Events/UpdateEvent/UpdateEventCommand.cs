@@ -1,9 +1,11 @@
-﻿using SenseEvents.Infrastructure.Messaging;
+﻿using System.Text.Json.Serialization;
+using MediatR;
 
 namespace SenseEvents.Features.Events.UpdateEvent
 {
-    public class UpdateEventCommand : ICommand<UpdateEventResponse>
+    public class UpdateEventCommand : IRequest<UpdateEventResponse>
     {
+        [JsonIgnore]
         public Guid Id { get; set; }
 
         public DateTime StartUtc { get; set; }

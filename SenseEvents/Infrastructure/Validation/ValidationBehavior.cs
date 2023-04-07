@@ -1,11 +1,10 @@
 ﻿using FluentValidation;
 using MediatR;
-using SenseEvents.Infrastructure.Messaging;
 
 namespace SenseEvents.Infrastructure.Validation
 {
     public class ValidationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
-        where TRequest : class, ICommand<TResponse>
+        where TRequest : class, IRequest<TResponse>
     {
         private readonly IEnumerable<IValidator<TRequest>> _validators;
 

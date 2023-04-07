@@ -1,8 +1,8 @@
-﻿using SenseEvents.Infrastructure.Messaging;
+﻿using MediatR;
 
 namespace SenseEvents.Features.Events.UpdateEvent
 {
-    public class UpdateEventHandler : ICommandHandler<UpdateEventCommand, UpdateEventResponse>
+    public class UpdateEventHandler : IRequestHandler<UpdateEventCommand, UpdateEventResponse>
     {
         private readonly IEventsService _eventsService;
 

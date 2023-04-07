@@ -1,8 +1,8 @@
-﻿using SenseEvents.Infrastructure.Messaging;
+﻿using MediatR;
 
 namespace SenseEvents.Features.Events.AddEvent
 {
-    public class AddEventCommand : ICommand<AddEventResponse>
+    public class AddEventCommand : IRequest<AddEventResponse>
     {
         public DateTime StartUtc { get; set; }
 
