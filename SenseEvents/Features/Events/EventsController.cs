@@ -22,6 +22,7 @@ namespace SenseEvents.Features.Events
 
         [HttpGet]
         [ProducesResponseType(200, Type = typeof(GetEventsResponse))]
+        [ProducesResponseType(400, Type = typeof(ErrorResponse))]
         public async Task<IActionResult> GetEvents()
         {
             var events = await _mediator.Send(new GetEventsQuery());
