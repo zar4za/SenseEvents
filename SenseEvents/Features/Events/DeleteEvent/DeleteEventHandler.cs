@@ -1,8 +1,8 @@
-﻿using SenseEvents.Infrastructure.Messaging;
+﻿using MediatR;
 
 namespace SenseEvents.Features.Events.DeleteEvent
 {
-    public class DeleteEventHandler : ICommandHandler<DeleteEventCommand, DeleteEventResponse>
+    public class DeleteEventHandler : IRequestHandler<DeleteEventCommand, DeleteEventResponse>
     {
         private readonly IEventsService _eventsService;
 

@@ -40,19 +40,9 @@ namespace SenseEvents.Features.Events
         [HttpPut("{id:guid}")]
         [ProducesResponseType(200, Type = typeof(UpdateEventResponse))]
         [ProducesResponseType(400, Type = typeof(ErrorResponse))]
-        public async Task<IActionResult> UpdateEvent(Guid id, [FromBody] UpdateEventRequest request)
+        public async Task<IActionResult> UpdateEvent(Guid id, [FromBody] UpdateEventCommand command)
         {
-            var command = new UpdateEventCommand()
-            {
-                Id = id,
-                StartUtc = request.StartUtc,
-                EndUtc = request.EndUtc,
-                Name = request.Name,
-                Description = request.Description,
-                ImageId = request.ImageId,
-                SpaceId = request.SpaceId
-            };
-
+            command.Id = id;
             var success = await _mediator.Send(command);
             return Ok(success);
         }
