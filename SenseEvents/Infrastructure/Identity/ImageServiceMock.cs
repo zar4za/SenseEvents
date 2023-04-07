@@ -1,4 +1,4 @@
-﻿namespace SenseEvents.Features.Events
+﻿namespace SenseEvents.Infrastructure.Identity
 {
     public class ImageServiceMock : IImageService
     {
