@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using SenseEvents.Infrastructure.Identity;
 
 namespace SenseEvents.Features.Events.UpdateEvent
 {
