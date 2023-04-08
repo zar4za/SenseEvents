@@ -4,6 +4,7 @@ using SenseEvents.Features.Events.AddEvent;
 using SenseEvents.Features.Events.AddTicket;
 using SenseEvents.Features.Events.DeleteEvent;
 using SenseEvents.Features.Events.GetEvents;
+using SenseEvents.Features.Events.GetTickets;
 using SenseEvents.Features.Events.UpdateEvent;
 using SenseEvents.Infrastructure.Validation;
 
@@ -63,7 +64,17 @@ namespace SenseEvents.Features.Events
             return Ok(success);
         }
 
+        [HttpGet("{id:guid}/tickets")]
+        public async Task<IActionResult> GetTickets(Guid id)
+        {
+            var query = new GetTicketsQuery()
+            {
+                EventId = id
+            };
 
+            var tickets = await _mediator.Send(query);
+            return Ok(tickets);
+        }
 
         [HttpPost("{id:guid}/tickets")]
         public async Task<IActionResult> AddTicket(Guid id, AddTicketCommand command)

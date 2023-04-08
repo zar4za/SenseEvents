@@ -2,6 +2,6 @@
 {
     public class GetEventsResponse
     {
-        public IEnumerable<Event> Events { get; set; }
+        public IEnumerable<Event> Events { get; set; } = null!;
     }
 }

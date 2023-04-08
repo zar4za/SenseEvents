@@ -1,5 +1,4 @@
-﻿using MediatR;
-using SenseEvents.Features.Events.AddEvent;
+﻿using SenseEvents.Features.Events.AddEvent;
 using SenseEvents.Features.Events.DeleteEvent;
 using SenseEvents.Features.Tickets;
 using SenseEvents.Infrastructure.Identity;
@@ -15,7 +14,6 @@ namespace SenseEvents.Features.Events
         {
             _guidService = guidService;
         }
-
 
         public async Task<Guid> AddEvent(AddEventCommand command)
         {
