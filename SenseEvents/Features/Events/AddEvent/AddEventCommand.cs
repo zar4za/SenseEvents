@@ -8,7 +8,7 @@ namespace SenseEvents.Features.Events.AddEvent
 
         public DateTime EndUtc { get; set; }
 
-        public string Name { get; set; }
+        public string Name { get; set; } = null!;
 
         public string? Description { get; set; }
 

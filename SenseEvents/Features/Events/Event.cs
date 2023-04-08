@@ -6,7 +6,7 @@ namespace SenseEvents.Features.Events
     {
         private readonly List<Ticket> _tickets = null!;
 
-        public Guid Id { get; set; }
+        public Guid Id { get; init; }
 
         public DateTime StartUtc { get; set; }
 
