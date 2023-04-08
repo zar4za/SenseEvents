@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SenseEvents.Features.Events.AddEvent;
+using SenseEvents.Features.Events.AddTicket;
 using SenseEvents.Features.Events.DeleteEvent;
 using SenseEvents.Features.Events.GetEvents;
 using SenseEvents.Features.Events.UpdateEvent;
@@ -62,11 +63,14 @@ namespace SenseEvents.Features.Events
             return Ok(success);
         }
 
-        [HttpGet("{id:guid}")]
-        public async Task<IActionResult> GetTickets([FromRoute] GetEventsQuery query)
+
+
+        [HttpPost("{id:guid}/tickets")]
+        public async Task<IActionResult> AddTicket(Guid id, AddTicketCommand command)
         {
-            var tickets = await _mediator.Send(query);
-            return Ok(tickets);
+            command.EventId = id;
+            var ticket = await _mediator.Send(command);
+            return Ok(ticket);
         }
     }
 }
