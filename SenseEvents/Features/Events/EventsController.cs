@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SC.Internship.Common.ScResult;
 using SenseEvents.Features.Events.AddEvent;
 using SenseEvents.Features.Events.AddTicket;
 using SenseEvents.Features.Events.DeleteEvent;
@@ -21,10 +22,12 @@ namespace SenseEvents.Features.Events
             _mediator = mediator;
         }
 
-
+        /// <summary>
+        /// Получение списка мероприятий
+        /// </summary>
         [HttpGet]
         [ProducesResponseType(200, Type = typeof(GetEventsResponse))]
-        [ProducesResponseType(400, Type = typeof(ErrorResponse))]
+        [ProducesResponseType(400, Type = typeof(ScError))]
         public async Task<IActionResult> GetEvents()
         {
             var events = await _mediator.Send(new GetEventsQuery());
@@ -33,7 +36,7 @@ namespace SenseEvents.Features.Events
 
         [HttpPost]
         [ProducesResponseType(200, Type = typeof(AddEventResponse))]
-        [ProducesResponseType(400, Type = typeof(ErrorResponse))]
+        [ProducesResponseType(400, Type = typeof(ScError))]
         public async Task<IActionResult> AddEvent([FromBody] AddEventCommand command)
         {
             var eventId = await _mediator.Send(command);
@@ -42,7 +45,7 @@ namespace SenseEvents.Features.Events
 
         [HttpPut("{id:guid}")]
         [ProducesResponseType(200, Type = typeof(UpdateEventResponse))]
-        [ProducesResponseType(400, Type = typeof(ErrorResponse))]
+        [ProducesResponseType(400, Type = typeof(ScError))]
         public async Task<IActionResult> UpdateEvent(Guid id, [FromBody] UpdateEventCommand command)
         {
             command.Id = id;
@@ -52,7 +55,7 @@ namespace SenseEvents.Features.Events
 
         [HttpDelete("{id:guid}")]
         [ProducesResponseType(200, Type = typeof(DeleteEventResponse))]
-        [ProducesResponseType(400, Type = typeof(ErrorResponse))]
+        [ProducesResponseType(400, Type = typeof(ScError))]
         public async Task<IActionResult> DeleteEvent(Guid id)
         {
             var command = new DeleteEventCommand()

@@ -1,11 +1,11 @@
 ﻿using FluentValidation;
+using SC.Internship.Common.Exceptions;
+using SC.Internship.Common.ScResult;
 
 namespace SenseEvents.Infrastructure.Validation
 {
     public class ValidationExceptionHandlingMiddleware : IMiddleware
     {
-        private const int ValidationExceptionStatusCode = 400;
-
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
             try
@@ -20,17 +20,35 @@ namespace SenseEvents.Infrastructure.Validation
 
         private static async Task HandleExceptionAsync(HttpContext httpContext, Exception exception)
         {
-            if (exception is not ValidationException validationException) throw exception;
+            var scResult = new ScResult();
 
-            httpContext.Response.StatusCode = ValidationExceptionStatusCode;
-
-            var response = new ErrorResponse()
+            switch (exception)
             {
-                Message = validationException.Message,
-                Errors = validationException.Errors.Select(e => e.ToString())
-            };
+                case ValidationException validationException:
+                    httpContext.Response.StatusCode = 400;
+                    scResult.Error = new ScError()
+                    {
+                        Message = exception.Message,
+                        ModelState = validationException.Errors.ToDictionary(
+                            x => x.PropertyName,
+                            x => validationException.Errors
+                                .Where(y => x.PropertyName == y.PropertyName)
+                                .Select(y => y.ErrorMessage)
+                                .ToList())
+                    };
+                    break;
+                case ScException scException:
+                    httpContext.Response.StatusCode = 400;
+                    scResult.Error = new ScError
+                    {
+                        Message = scException.Message
+                    };
+                    break;
+                default:
+                    throw exception;
+            }
 
-            await httpContext.Response.WriteAsJsonAsync(response);
+            await httpContext.Response.WriteAsJsonAsync(scResult);
         }
     }
 }
