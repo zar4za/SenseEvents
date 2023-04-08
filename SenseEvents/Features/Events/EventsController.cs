@@ -61,5 +61,12 @@ namespace SenseEvents.Features.Events
             var success = await _mediator.Send(command);
             return Ok(success);
         }
+
+        [HttpGet("{id:guid}")]
+        public async Task<IActionResult> GetTickets([FromRoute] GetEventsQuery query)
+        {
+            var tickets = await _mediator.Send(query);
+            return Ok(tickets);
+        }
     }
 }
