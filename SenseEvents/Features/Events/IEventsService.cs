@@ -1,5 +1,6 @@
 ﻿using SenseEvents.Features.Events.AddEvent;
 using SenseEvents.Features.Events.DeleteEvent;
+using SenseEvents.Features.Tickets;
 
 namespace SenseEvents.Features.Events
 {
@@ -9,8 +10,10 @@ namespace SenseEvents.Features.Events
 
         Task<IEnumerable<Event>> GetEvents();
 
-        Task<Event?> GetEvent(Guid id);
+        Task<Event> GetEvent(Guid id);
 
         Task<bool> DeleteEvent(DeleteEventCommand command);
+
+        Task<Ticket> AddTicket(Guid eventId, Ticket ticket);
     }
 }

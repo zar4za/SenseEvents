@@ -1,5 +1,7 @@
-﻿using SenseEvents.Features.Events.AddEvent;
+﻿using MediatR;
+using SenseEvents.Features.Events.AddEvent;
 using SenseEvents.Features.Events.DeleteEvent;
+using SenseEvents.Features.Tickets;
 using SenseEvents.Infrastructure.Identity;
 
 namespace SenseEvents.Features.Events
@@ -29,7 +31,8 @@ namespace SenseEvents.Features.Events
                     StartUtc = command.StartUtc,
                     EndUtc = command.EndUtc,
                     ImageId = command.ImageId,
-                    SpaceId = command.SpaceId
+                    SpaceId = command.SpaceId,
+                    Tickets = new List<Ticket>()
                 });
             });
 
@@ -41,9 +44,10 @@ namespace SenseEvents.Features.Events
             return await Task.Run(() => _events.AsEnumerable());
         }
 
-        public async Task<Event?> GetEvent(Guid id)
+        public async Task<Event> GetEvent(Guid id)
         {
-            return await Task.Run(() => _events.FirstOrDefault(e => e.Id == id));
+            return await Task.Run(() => _events.FirstOrDefault(e => e.Id == id)) ?? 
+                   throw new InvalidOperationException($"No event with id {id}");
         }
 
         public async Task<bool> DeleteEvent(DeleteEventCommand command)
@@ -52,6 +56,14 @@ namespace SenseEvents.Features.Events
             {
                 return _events.RemoveAll(e => e.Id == command.Id) > 0;
             });
+        }
+
+        public async Task<Ticket> AddTicket(Guid eventId, Ticket ticket)
+        {
+            var plannedEvent = await GetEvent(eventId);
+            plannedEvent.AddTicket(ticket);
+
+            return ticket;
         }
     }
 }
