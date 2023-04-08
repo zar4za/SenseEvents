@@ -4,7 +4,7 @@ namespace SenseEvents.Features.Events.DeleteEvent
 {
     public class DeleteEventValidator : AbstractValidator<DeleteEventCommand>
     {
-        public DeleteEventValidator(IEventsService events)
+        public DeleteEventValidator()
         {
             RuleFor(e => e.Id)
                 .NotEmpty();
