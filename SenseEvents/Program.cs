@@ -27,6 +27,13 @@ builder.Services.AddSingleton<IEventsService, EventsServiceMock>();
 builder.Services.AddTransient<IImageService, ImageServiceMock>();
 builder.Services.AddTransient<ISpaceService, SpaceServiceMock>();
 builder.Services.AddTransient<ITicketsService, TicketsServiceMock>();
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.AllowAnyOrigin();
+    });
+});
 
 builder.Services.AddMediatR(options =>
 {
@@ -43,6 +50,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors();
 app.UseAuthorization();
 app.MapControllers();
 app.UseMiddleware<ValidationExceptionHandlingMiddleware>();
