@@ -27,7 +27,7 @@ namespace SenseEvents.Features.Events
         /// <summary>
         /// Название мероприятия.
         /// </summary>
-        public string? Name { get; set; }
+        public string Name { get; set; }
 
         /// <summary>
         /// Краткое описание мероприятия.
