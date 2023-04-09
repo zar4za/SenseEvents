@@ -8,7 +8,6 @@ using SenseEvents.Features.Events.DeleteEvent;
 using SenseEvents.Features.Events.GetEvents;
 using SenseEvents.Features.Events.GetTickets;
 using SenseEvents.Features.Events.UpdateEvent;
-using SenseEvents.Infrastructure.Validation;
 
 namespace SenseEvents.Features.Events
 {
