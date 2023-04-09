@@ -6,7 +6,6 @@ using SenseEvents.Infrastructure.Identity;
 using SenseEvents.Infrastructure.Validation;
 using System.Reflection;
 using System.Text;
-using JwtService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
