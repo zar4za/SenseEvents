@@ -1,6 +1,4 @@
-﻿using SenseEvents.Features.Tickets;
-
-namespace SenseEvents.Features.Events.AddTicket
+﻿namespace SenseEvents.Features.Events.AddTicket
 {
     /// <summary>
     /// Модель ответа на выдачу билета на мероприятие.

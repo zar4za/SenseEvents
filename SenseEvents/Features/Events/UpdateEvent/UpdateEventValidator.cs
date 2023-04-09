@@ -1,8 +1,10 @@
 ﻿using FluentValidation;
+using JetBrains.Annotations;
 using SenseEvents.Infrastructure.Identity;
 
 namespace SenseEvents.Features.Events.UpdateEvent
 {
+    [UsedImplicitly] // Used in middleware
     public class UpdateEventValidator : AbstractValidator<UpdateEventCommand>
     {
         public UpdateEventValidator(IImageService images, ISpaceService spaces)

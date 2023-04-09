@@ -1,6 +1,4 @@
-﻿using SenseEvents.Features.Tickets;
-
-namespace SenseEvents.Features.Events
+﻿namespace SenseEvents.Features.Events
 {
     /// <summary>
     /// Модель, содержащая информацию о мероприятии.

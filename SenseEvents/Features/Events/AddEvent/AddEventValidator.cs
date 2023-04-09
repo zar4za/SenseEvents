@@ -1,8 +1,10 @@
 ﻿using FluentValidation;
+using JetBrains.Annotations;
 using SenseEvents.Infrastructure.Identity;
 
 namespace SenseEvents.Features.Events.AddEvent
 {
+    [UsedImplicitly] //used by middleware
     public class AddEventValidator : AbstractValidator<AddEventCommand>
     {
         public AddEventValidator(IImageService images, ISpaceService spaces)

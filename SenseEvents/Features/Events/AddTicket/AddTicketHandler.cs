@@ -1,9 +1,10 @@
-﻿using MediatR;
-using SenseEvents.Features.Tickets;
+﻿using JetBrains.Annotations;
+using MediatR;
 using SenseEvents.Infrastructure.Identity;
 
 namespace SenseEvents.Features.Events.AddTicket
 {
+    [UsedImplicitly] //mediator
     public class AddTicketHandler : IRequestHandler<AddTicketCommand, AddTicketResponse>
     {
         private readonly IGuidService _guidService;
