@@ -1,9 +1,12 @@
-﻿namespace JwtService.Identity
+﻿using JetBrains.Annotations;
+
+namespace JwtService.Identity
 {
     public class GetTokenCommand
     {
-        public string Username { get; set; } = null!;
+        [UsedImplicitly]
+        public string Username { get; init; } = null!;
 
-        public string Password { get; set; } = null!;
+        public string Password { get; init; } = null!;
     }
 }

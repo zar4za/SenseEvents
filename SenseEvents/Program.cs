@@ -51,7 +51,7 @@ builder.Services.AddCors(options =>
     });
 });
 
-var authOptions = builder.Configuration.GetSection(AuthOptions.ConfigSection).Get<AuthOptions>();
+var authOptions = builder.Configuration.GetSection(AuthOptions.ConfigSection).Get<AuthOptions>()!;
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
