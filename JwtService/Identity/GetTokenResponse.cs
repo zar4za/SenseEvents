@@ -1,6 +1,6 @@
-﻿namespace JwtService
+﻿namespace JwtService.Identity
 {
-    public class TokenResponse
+    public class GetTokenResponse
     {
         public string Token { get; set; } = null!;
     }

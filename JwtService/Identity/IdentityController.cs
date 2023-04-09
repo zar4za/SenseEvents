@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
-namespace JwtService.Controllers
+namespace JwtService.Identity
 {
     [ApiController]
     [Route("[controller]")]
@@ -18,19 +18,13 @@ namespace JwtService.Controllers
             _options = options.Value;
         }
 
-        /// <summary>
-        /// Создан в виду того, что предложенный IdentityServer не возвращал JWT токен.
-        /// </summary>
-        /// <param name="userId"></param>
-        /// <returns></returns>
-
         [HttpPost("token")]
-        [ProducesResponseType(statusCode: 200, type: typeof(TokenResponse))]
-        public IActionResult Get(Guid userId)
+        [ProducesResponseType(statusCode: 200, type: typeof(GetTokenResponse))]
+        public IActionResult Get([FromBody] GetTokenCommand command)
         {
             var claims = new List<Claim>
             {
-                new(ClaimTypes.Sid, userId.ToString())
+                new(ClaimTypes.NameIdentifier, command.Username)
             };
 
             var token = new JwtSecurityToken(
@@ -42,7 +36,7 @@ namespace JwtService.Controllers
                     key: new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_options.SecurityKey)),
                     algorithm: SecurityAlgorithms.HmacSha256));
 
-            return Ok(new TokenResponse()
+            return Ok(new GetTokenResponse()
             {
                 Token = new JwtSecurityTokenHandler().WriteToken(token)
             });
