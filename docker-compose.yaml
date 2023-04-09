@@ -1,0 +1,12 @@
+version: '3.8'
+services:
+  jwt:
+    image: zar4za/jwtservice:dev
+    ports:
+      - "5001:80"
+  events:
+    build: 
+      context: .
+      dockerfile: SenseEvents/Dockerfile
+    ports:
+      - "8080:80"
