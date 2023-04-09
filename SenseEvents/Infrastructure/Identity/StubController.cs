@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using System.Net.NetworkInformation;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,7 +15,10 @@ namespace SenseEvents.Infrastructure.Identity
         [HttpGet("authstub")]
         public async Task<IActionResult> Ping()
         {
-            return Ok();
+            return Ok(new PingResponse()
+            {
+                Message = "pong"
+            });
         }
     }
 }
