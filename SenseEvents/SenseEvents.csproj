@@ -22,7 +22,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\JwtService\JwtService.csproj" />
 		<ProjectReference Include="..\SC.Internship.Common\SC.Internship.Common\SC.Internship.Common.csproj" />
 	</ItemGroup>
 
