@@ -1,7 +1,9 @@
-﻿using MediatR;
+﻿using JetBrains.Annotations;
+using MediatR;
 
 namespace SenseEvents.Features.Events.DeleteEvent
 {
+    [UsedImplicitly] // Mediator
     public class DeleteEventHandler : IRequestHandler<DeleteEventCommand, DeleteEventResponse>
     {
         private readonly IEventsService _eventsService;

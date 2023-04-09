@@ -1,7 +1,9 @@
-﻿using MediatR;
+﻿using JetBrains.Annotations;
+using MediatR;
 
 namespace SenseEvents.Features.Events.AddEvent
 {
+    [UsedImplicitly] //mediator
     public class AddEventHandler : IRequestHandler<AddEventCommand, AddEventResponse>
     {
         private readonly IEventsService _eventsService;

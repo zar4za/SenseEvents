@@ -1,6 +1,4 @@
-﻿using SenseEvents.Features.Tickets;
-
-namespace SenseEvents.Features.Events.GetTickets
+﻿namespace SenseEvents.Features.Events.GetTickets
 {
     /// <summary>
     /// Модель ответа на запрос всех билетов на мероприятие.

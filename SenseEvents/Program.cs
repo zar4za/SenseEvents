@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using SenseEvents.Features.Events;
-using SenseEvents.Features.Tickets;
 using SenseEvents.Infrastructure.Identity;
 using SenseEvents.Infrastructure.Validation;
 using System.Reflection;
@@ -40,7 +39,6 @@ builder.Services.AddSingleton<IGuidService, GuidService>();
 builder.Services.AddSingleton<IEventsService, EventsServiceMock>();
 builder.Services.AddTransient<IImageService, ImageServiceMock>();
 builder.Services.AddTransient<ISpaceService, SpaceServiceMock>();
-builder.Services.AddTransient<ITicketsService, TicketsServiceMock>();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: "AllowAny", policy =>

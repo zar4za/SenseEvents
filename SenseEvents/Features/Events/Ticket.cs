@@ -1,4 +1,4 @@
-﻿namespace SenseEvents.Features.Tickets
+﻿namespace SenseEvents.Features.Events
 {
     /// <summary>
     /// Модель билета на мероприятие.
