@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SC.Internship.Common.ScResult;
 using SenseEvents.Features.Events.AddEvent;
@@ -67,6 +68,7 @@ namespace SenseEvents.Features.Events
             return Ok(success);
         }
 
+        [Authorize]
         [HttpGet("{id:guid}/tickets")]
         public async Task<IActionResult> GetTickets(Guid id)
         {
@@ -79,6 +81,7 @@ namespace SenseEvents.Features.Events
             return Ok(tickets);
         }
 
+        [Authorize]
         [HttpPost("{id:guid}/tickets")]
         public async Task<IActionResult> AddTicket(Guid id, AddTicketCommand command)
         {

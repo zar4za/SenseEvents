@@ -11,13 +11,18 @@
 	<ItemGroup>
 		<PackageReference Include="FluentValidation" Version="11.5.1" />
 		<PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.5.1" />
+		<PackageReference Include="IdentityModel" Version="6.0.0" />
+		<PackageReference Include="IdentityModel.AspNetCore.OAuth2Introspection" Version="6.2.0" />
+		<PackageReference Include="IdentityServer4.AccessTokenValidation" Version="3.0.1" />
 		<PackageReference Include="MediatR" Version="12.0.1" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.4" />
 		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.4" />
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.2" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\JwtService\JwtService.csproj" />
 		<ProjectReference Include="..\SC.Internship.Common\SC.Internship.Common\SC.Internship.Common.csproj" />
 	</ItemGroup>
 
