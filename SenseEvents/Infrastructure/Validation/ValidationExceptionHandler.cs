@@ -26,7 +26,7 @@ public class ValidationExceptionHandlingMiddleware : IMiddleware
         {
             case ValidationException validationException:
                 httpContext.Response.StatusCode = 400;
-                scResult.Error = new ScError()
+                scResult.Error = new ScError
                 {
                     Message = exception.Message,
                     ModelState = validationException.Errors.ToDictionary(

@@ -20,7 +20,7 @@ public class EventsServiceMock : IEventsService
 
         await Task.Run(() =>
         { 
-            _events.Add(new Event()
+            _events.Add(new Event
             {
                 Id = id,
                 Name = command.Name,

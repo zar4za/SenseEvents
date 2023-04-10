@@ -25,7 +25,7 @@ public class UpdateEventHandler : IRequestHandler<UpdateEventCommand, UpdateEven
         storedEvent.ImageId = request.ImageId;
         storedEvent.SpaceId = request.SpaceId;
 
-        return new UpdateEventResponse()
+        return new UpdateEventResponse
         {
             Success = true
         };

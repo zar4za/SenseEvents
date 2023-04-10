@@ -15,7 +15,7 @@ public class GetEventsHandler : IRequestHandler<GetEventsQuery, GetEventsRespons
 
     public async Task<GetEventsResponse> Handle(GetEventsQuery request, CancellationToken cancellationToken)
     {
-        return new GetEventsResponse()
+        return new GetEventsResponse
         {
             Events = await _eventsService.GetEvents()
         };
