@@ -31,7 +31,7 @@ namespace SenseEvents.Features.Events
         /// Название мероприятия.
         /// </summary>
         [UsedImplicitly] // json serialization
-        public string Name { get; set; }
+        public string Name { get; set; } = null!;
 
         /// <summary>
         /// Краткое описание мероприятия.

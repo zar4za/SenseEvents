@@ -32,7 +32,7 @@ namespace SenseEvents.Features.Events.UpdateEvent
         /// Название мероприятия.
         /// </summary>
         [UsedImplicitly] // json parsing
-        public string Name { get; set; }
+        public string Name { get; set; } = null!;
 
         /// <summary>
         /// Краткое описание мероприятия.
