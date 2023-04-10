@@ -34,6 +34,11 @@ public class EventsController : ControllerBase
         return Ok(events);
     }
 
+    /// <summary>
+    /// Добавление нового мероприятия
+    /// </summary>
+    /// <param name="command">Модель запроса</param>
+    /// <returns></returns>
     [HttpPost]
     [ProducesResponseType(statusCode: 200, type: typeof(AddEventResponse))]
     [ProducesResponseType(statusCode: 400, type: typeof(ScError))]
@@ -44,7 +49,12 @@ public class EventsController : ControllerBase
         return Ok(eventId);
     }
 
-        
+    /// <summary>
+    /// Изменение существующего мероприятия
+    /// </summary>
+    /// <param name="id">Guid мероприятия</param>
+    /// <param name="command">Модель запроса</param>
+    /// <returns></returns>
     // ReSharper disable once RouteTemplates.ActionRoutePrefixCanBeExtractedToControllerRoute
     // Not all methods need an id
     [HttpPut("{id:guid}")]
@@ -58,6 +68,11 @@ public class EventsController : ControllerBase
         return Ok(success);
     }
 
+    /// <summary>
+    /// Удаление мероприятия
+    /// </summary>
+    /// <param name="id">Guid мероприятия</param>
+    /// <returns></returns>
     // ReSharper disable once RouteTemplates.ActionRoutePrefixCanBeExtractedToControllerRoute
     // Not all methods need an id
     [HttpDelete("{id:guid}")]
@@ -75,6 +90,11 @@ public class EventsController : ControllerBase
         return Ok(success);
     }
 
+    /// <summary>
+    /// Получение выданных билетов на мероприятие
+    /// </summary>
+    /// <param name="id">Guid мероприятия</param>
+    /// <returns></returns>
     // ReSharper disable once RouteTemplates.ActionRoutePrefixCanBeExtractedToControllerRoute
     // Not all methods need an id
     [HttpGet("{id:guid}/tickets")]
@@ -92,6 +112,12 @@ public class EventsController : ControllerBase
         return Ok(tickets);
     }
 
+    /// <summary>
+    /// Выдача билета на мероприятие
+    /// </summary>
+    /// <param name="id">Guid мероприятия</param>
+    /// <param name="command">Модель запроса</param>
+    /// <returns></returns>
     // ReSharper disable once RouteTemplates.ActionRoutePrefixCanBeExtractedToControllerRoute
     // Not all methods need an id
     [HttpPost("{id:guid}/tickets")]

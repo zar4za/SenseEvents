@@ -81,8 +81,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseCors("AllowAny");
+app.UseMiddleware<ValidationExceptionHandlingMiddleware>();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
-app.UseMiddleware<ValidationExceptionHandlingMiddleware>();
 app.Run();
