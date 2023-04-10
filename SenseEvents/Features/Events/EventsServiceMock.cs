@@ -29,6 +29,7 @@ public class EventsServiceMock : IEventsService
                 EndUtc = command.EndUtc,
                 ImageId = command.ImageId,
                 SpaceId = command.SpaceId,
+                MaxTickets = command.MaxTickets,
                 Tickets = new List<Ticket>()
             });
         });
@@ -58,8 +59,11 @@ public class EventsServiceMock : IEventsService
     public async Task<Ticket> AddTicket(Guid eventId, Ticket ticket)
     {
         var plannedEvent = await GetEvent(eventId);
-        plannedEvent.AddTicket(ticket);
 
+        if (!plannedEvent.CanIssueTicket) 
+            throw new InvalidOperationException("Reached max amount of tickets.");
+
+        plannedEvent.AddTicket(ticket);
         return ticket;
     }
 }
