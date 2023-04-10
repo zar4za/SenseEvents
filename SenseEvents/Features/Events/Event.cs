@@ -1,4 +1,6 @@
-﻿namespace SenseEvents.Features.Events
+﻿using JetBrains.Annotations;
+
+namespace SenseEvents.Features.Events
 {
     /// <summary>
     /// Модель, содержащая информацию о мероприятии.
@@ -10,36 +12,43 @@
         /// <summary>
         /// Уникальный идентификатор мероприятия.
         /// </summary>
+        [UsedImplicitly] // json serialization
         public Guid Id { get; init; }
 
         /// <summary>
         /// Время начала мероприятия.
         /// </summary>
+        [UsedImplicitly] // json serialization
         public DateTime StartUtc { get; set; }
 
         /// <summary>
         /// Время окончания мероприятия. Должно быть позже времени начала.
         /// </summary>
+        [UsedImplicitly] // json serialization
         public DateTime EndUtc { get; set; }
 
         /// <summary>
         /// Название мероприятия.
         /// </summary>
+        [UsedImplicitly] // json serialization
         public string Name { get; set; }
 
         /// <summary>
         /// Краткое описание мероприятия.
         /// </summary>
+        [UsedImplicitly] // json serialization
         public string? Description { get; set; }
 
         /// <summary>
         /// Идентификатор картинки для шапки мероприятия.
         /// </summary>
+        [UsedImplicitly] // json serialization
         public Guid ImageId { get; set; }
 
         /// <summary>
         /// Идентификатор пространства, в котором будет проходить мероприятие.
         /// </summary>
+        [UsedImplicitly] // json serialization
         public Guid SpaceId { get; set; }
 
         /// <summary>

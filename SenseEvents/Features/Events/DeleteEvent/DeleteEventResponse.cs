@@ -1,4 +1,6 @@
-﻿namespace SenseEvents.Features.Events.DeleteEvent
+﻿using JetBrains.Annotations;
+
+namespace SenseEvents.Features.Events.DeleteEvent
 {
     /// <summary>
     /// Модель ответа на удаление мероприятия.
@@ -8,6 +10,7 @@
         /// <summary>
         /// Флаг, показывающий успешность удаления.
         /// </summary>
+        [UsedImplicitly] // json serialization
         public bool Success { get; set; }
     }
 }

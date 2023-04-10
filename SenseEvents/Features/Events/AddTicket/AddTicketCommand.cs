@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Serialization;
+using JetBrains.Annotations;
 using MediatR;
 
 namespace SenseEvents.Features.Events.AddTicket
@@ -18,11 +19,13 @@ namespace SenseEvents.Features.Events.AddTicket
         /// <summary>
         /// Идентификатор владельца билета.
         /// </summary>
-        public Guid OwnerId { get; set; }
+        [UsedImplicitly] // json parsing
+        public Guid OwnerId { get; init; }
 
         /// <summary>
         /// Номер места в пространстве.
         /// </summary>
-        public int? Seat { get; set; }
+        [UsedImplicitly] // json parsing
+        public int? Seat { get; init; }
     }
 }

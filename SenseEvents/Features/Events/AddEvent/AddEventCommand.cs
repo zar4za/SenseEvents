@@ -11,11 +11,14 @@ namespace SenseEvents.Features.Events.AddEvent
         /// <summary>
         /// Время начала мероприятия.
         /// </summary>
+        [UsedImplicitly] // json parsing
         public DateTime StartUtc { get; init; }
 
         /// <summary>
         /// Время окончания мероприятия. Должно быть позже времени начала.
         /// </summary>
+        [UsedImplicitly] // json parsing
+        
         public DateTime EndUtc { get; init; }
 
         /// <summary>
@@ -27,16 +30,19 @@ namespace SenseEvents.Features.Events.AddEvent
         /// <summary>
         /// Краткое описание мероприятия.
         /// </summary>
+        [UsedImplicitly] // json parsing
         public string? Description { get; init; }
 
         /// <summary>
         /// Идентификатор картинки для шапки мероприятия.
         /// </summary>
+        [UsedImplicitly] // json parsing
         public Guid ImageId { get; init; }
 
         /// <summary>
         /// Идентификатор пространства, в котором будет проходить мероприятие.
         /// </summary>
+        [UsedImplicitly] // json parsing
         public Guid SpaceId { get; init; }
     }
 }
