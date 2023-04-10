@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   jwt:
-    image: zar4za/jwtservice:dev
+    image: zar4za/jwtservice
     ports:
       - "5001:80"
   events:
