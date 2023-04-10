@@ -33,8 +33,7 @@ builder.Services.AddSwaggerGen(options =>
         Scheme = "Bearer"
     });
 });
-    
-//singleton т.к. эти сервисы - заглушки, которые хранят состояние
+
 builder.Services.AddSingleton<IGuidService, GuidService>();
 builder.Services.AddSingleton<IEventsService, EventsServiceMock>();
 builder.Services.AddTransient<IImageService, ImageServiceMock>();
