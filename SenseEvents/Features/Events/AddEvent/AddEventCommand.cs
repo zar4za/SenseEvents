@@ -44,4 +44,10 @@ public class AddEventCommand : IRequest<AddEventResponse>
     /// </summary>
     [UsedImplicitly] // json parsing
     public Guid SpaceId { get; init; }
+
+    /// <summary>
+    /// Максимальное количество билетов, которое можно выдать на мероприятие.
+    /// </summary>
+    [UsedImplicitly] // json parsing 
+    public int? MaxTickets { get; init; }
 }

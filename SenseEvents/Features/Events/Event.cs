@@ -1,4 +1,5 @@
-﻿using JetBrains.Annotations;
+﻿using System.Text.Json.Serialization;
+using JetBrains.Annotations;
 
 namespace SenseEvents.Features.Events;
 
@@ -51,6 +52,9 @@ public class Event
     [UsedImplicitly] // json serialization
     public Guid SpaceId { get; set; }
 
+    [JsonIgnore]
+    public int? MaxTickets { private get; init; }
+
     /// <summary>
     /// Коллекция выданных билетов на это мероприятие.
     /// </summary>
@@ -59,6 +63,12 @@ public class Event
         get => _tickets;
         init => _tickets = value.ToList();
     }
+
+    /// <summary>
+    /// Можно ли выпустить еще один билет на данное мероприятие.
+    /// </summary>
+    [UsedImplicitly]
+    public bool CanIssueTicket => MaxTickets is null || Tickets.Count() < MaxTickets;
 
     /// <summary>
     /// Добавляет билет в коллекцию билетов.
