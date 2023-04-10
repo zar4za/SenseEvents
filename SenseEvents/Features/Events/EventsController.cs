@@ -25,8 +25,9 @@ public class EventsController : ControllerBase
     /// Получение списка мероприятий
     /// </summary>
     [HttpGet]
-    [ProducesResponseType(200, Type = typeof(GetEventsResponse))]
-    [ProducesResponseType(400, Type = typeof(ScError))]
+    [ProducesResponseType(statusCode: 200, type: typeof(GetEventsResponse))]
+    [ProducesResponseType(statusCode: 400, type: typeof(ScError))]
+    [ProducesResponseType(statusCode: 500, type: typeof(ScError))]
     public async Task<IActionResult> GetEvents()
     {
         var events = await _mediator.Send(new GetEventsQuery());
@@ -34,8 +35,9 @@ public class EventsController : ControllerBase
     }
 
     [HttpPost]
-    [ProducesResponseType(200, Type = typeof(AddEventResponse))]
-    [ProducesResponseType(400, Type = typeof(ScError))]
+    [ProducesResponseType(statusCode: 200, type: typeof(AddEventResponse))]
+    [ProducesResponseType(statusCode: 400, type: typeof(ScError))]
+    [ProducesResponseType(statusCode: 500, type: typeof(ScError))]
     public async Task<IActionResult> AddEvent([FromBody] AddEventCommand command)
     {
         var eventId = await _mediator.Send(command);
@@ -46,8 +48,9 @@ public class EventsController : ControllerBase
     // ReSharper disable once RouteTemplates.ActionRoutePrefixCanBeExtractedToControllerRoute
     // Not all methods need an id
     [HttpPut("{id:guid}")]
-    [ProducesResponseType(200, Type = typeof(UpdateEventResponse))]
-    [ProducesResponseType(400, Type = typeof(ScError))]
+    [ProducesResponseType(statusCode: 200, type: typeof(UpdateEventResponse))]
+    [ProducesResponseType(statusCode: 400, type: typeof(ScError))]
+    [ProducesResponseType(statusCode: 500, type: typeof(ScError))]
     public async Task<IActionResult> UpdateEvent(Guid id, [FromBody] UpdateEventCommand command)
     {
         command.Id = id;
@@ -58,8 +61,9 @@ public class EventsController : ControllerBase
     // ReSharper disable once RouteTemplates.ActionRoutePrefixCanBeExtractedToControllerRoute
     // Not all methods need an id
     [HttpDelete("{id:guid}")]
-    [ProducesResponseType(200, Type = typeof(DeleteEventResponse))]
-    [ProducesResponseType(400, Type = typeof(ScError))]
+    [ProducesResponseType(statusCode: 200, type: typeof(DeleteEventResponse))]
+    [ProducesResponseType(statusCode: 400, type: typeof(ScError))]
+    [ProducesResponseType(statusCode: 500, type: typeof(ScError))]
     public async Task<IActionResult> DeleteEvent(Guid id)
     {
         var command = new DeleteEventCommand
@@ -74,6 +78,9 @@ public class EventsController : ControllerBase
     // ReSharper disable once RouteTemplates.ActionRoutePrefixCanBeExtractedToControllerRoute
     // Not all methods need an id
     [HttpGet("{id:guid}/tickets")]
+    [ProducesResponseType(statusCode: 200, type: typeof(GetTicketsResponse))]
+    [ProducesResponseType(statusCode: 400, type: typeof(ScError))]
+    [ProducesResponseType(statusCode: 500, type: typeof(ScError))]
     public async Task<IActionResult> GetTickets(Guid id)
     {
         var query = new GetTicketsQuery
@@ -88,6 +95,9 @@ public class EventsController : ControllerBase
     // ReSharper disable once RouteTemplates.ActionRoutePrefixCanBeExtractedToControllerRoute
     // Not all methods need an id
     [HttpPost("{id:guid}/tickets")]
+    [ProducesResponseType(statusCode: 200, type: typeof(AddTicketResponse))]
+    [ProducesResponseType(statusCode: 400, type: typeof(ScError))]
+    [ProducesResponseType(statusCode: 500, type: typeof(ScError))]
     public async Task<IActionResult> AddTicket(Guid id, AddTicketCommand command)
     {
         command.EventId = id;
