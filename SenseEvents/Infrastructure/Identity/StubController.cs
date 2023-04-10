@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SC.Internship.Common.ScResult;
-using SenseEvents.Features.Events.AddTicket;
 
 namespace SenseEvents.Infrastructure.Identity;
 
@@ -10,7 +9,10 @@ namespace SenseEvents.Infrastructure.Identity;
 [Authorize]
 public class StubController : ControllerBase
 {
-
+    /// <summary>
+    /// Метод - заглушка. Нужен только для проверки аутентификации через Jwt.
+    /// </summary>
+    /// <returns></returns>
     [HttpGet("authstub")]
     [ProducesResponseType(statusCode: 200, type: typeof(PingResponse))]
     [ProducesResponseType(statusCode: 400, type: typeof(ScError))]
