@@ -43,6 +43,9 @@ namespace SenseEvents.Features.Events
             return Ok(eventId);
         }
 
+        
+        // ReSharper disable once RouteTemplates.ActionRoutePrefixCanBeExtractedToControllerRoute
+        // Not all methods need an id
         [HttpPut("{id:guid}")]
         [ProducesResponseType(200, Type = typeof(UpdateEventResponse))]
         [ProducesResponseType(400, Type = typeof(ScError))]
@@ -53,6 +56,8 @@ namespace SenseEvents.Features.Events
             return Ok(success);
         }
 
+        // ReSharper disable once RouteTemplates.ActionRoutePrefixCanBeExtractedToControllerRoute
+        // Not all methods need an id
         [HttpDelete("{id:guid}")]
         [ProducesResponseType(200, Type = typeof(DeleteEventResponse))]
         [ProducesResponseType(400, Type = typeof(ScError))]
@@ -67,7 +72,8 @@ namespace SenseEvents.Features.Events
             return Ok(success);
         }
 
-        [Authorize]
+        // ReSharper disable once RouteTemplates.ActionRoutePrefixCanBeExtractedToControllerRoute
+        // Not all methods need an id
         [HttpGet("{id:guid}/tickets")]
         public async Task<IActionResult> GetTickets(Guid id)
         {
@@ -80,7 +86,8 @@ namespace SenseEvents.Features.Events
             return Ok(tickets);
         }
 
-        [Authorize]
+        // ReSharper disable once RouteTemplates.ActionRoutePrefixCanBeExtractedToControllerRoute
+        // Not all methods need an id
         [HttpPost("{id:guid}/tickets")]
         public async Task<IActionResult> AddTicket(Guid id, AddTicketCommand command)
         {

@@ -10,7 +10,7 @@ namespace SenseEvents.Infrastructure.Identity
     {
 
         [HttpGet("authstub")]
-        public async Task<IActionResult> Ping()
+        public IActionResult Ping()
         {
             return Ok(new PingResponse()
             {
