@@ -1,25 +1,24 @@
 ﻿using JetBrains.Annotations;
 using MediatR;
 
-namespace SenseEvents.Features.Events.DeleteEvent
+namespace SenseEvents.Features.Events.DeleteEvent;
+
+[UsedImplicitly] // Mediator
+public class DeleteEventHandler : IRequestHandler<DeleteEventCommand, DeleteEventResponse>
 {
-    [UsedImplicitly] // Mediator
-    public class DeleteEventHandler : IRequestHandler<DeleteEventCommand, DeleteEventResponse>
+    private readonly IEventsService _eventsService;
+
+    public DeleteEventHandler(IEventsService eventsService)
     {
-        private readonly IEventsService _eventsService;
+        _eventsService = eventsService;
+    }
 
-        public DeleteEventHandler(IEventsService eventsService)
+    public async Task<DeleteEventResponse> Handle(DeleteEventCommand request, CancellationToken cancellationToken)
+    {
+        var success = await  _eventsService.DeleteEvent(request);
+        return new DeleteEventResponse()
         {
-            _eventsService = eventsService;
-        }
-
-        public async Task<DeleteEventResponse> Handle(DeleteEventCommand request, CancellationToken cancellationToken)
-        {
-            var success = await  _eventsService.DeleteEvent(request);
-            return new DeleteEventResponse()
-            {
-                Success = success
-            };
-        }
+            Success = success
+        };
     }
 }

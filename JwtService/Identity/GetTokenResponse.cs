@@ -1,10 +1,9 @@
 ﻿using JetBrains.Annotations;
 
-namespace JwtService.Identity
+namespace JwtService.Identity;
+
+public class GetTokenResponse
 {
-    public class GetTokenResponse
-    {
-        [UsedImplicitly] // json serialization
-        public string Token { get; set; } = null!;
-    }
+    [UsedImplicitly] // json serialization
+    public string Token { get; set; } = null!;
 }

@@ -1,10 +1,9 @@
-﻿namespace SenseEvents.Infrastructure.Identity
+﻿namespace SenseEvents.Infrastructure.Identity;
+
+public class ImageServiceMock : IImageService
 {
-    public class ImageServiceMock : IImageService
+    public bool ImageExists(Guid id)
     {
-        public bool ImageExists(Guid id)
-        {
-            return true;
-        }
+        return true;
     }
 }

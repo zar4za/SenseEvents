@@ -1,26 +1,25 @@
 ﻿using JetBrains.Annotations;
 using MediatR;
 
-namespace SenseEvents.Features.Events.AddEvent
+namespace SenseEvents.Features.Events.AddEvent;
+
+[UsedImplicitly] //mediator
+public class AddEventHandler : IRequestHandler<AddEventCommand, AddEventResponse>
 {
-    [UsedImplicitly] //mediator
-    public class AddEventHandler : IRequestHandler<AddEventCommand, AddEventResponse>
+    private readonly IEventsService _eventsService;
+
+    public AddEventHandler(IEventsService eventsService)
     {
-        private readonly IEventsService _eventsService;
+        _eventsService = eventsService;
+    }
 
-        public AddEventHandler(IEventsService eventsService)
+    public async Task<AddEventResponse> Handle(AddEventCommand command, CancellationToken cancellationToken)
+    {
+        var id = await _eventsService.AddEvent(command);
+
+        return new AddEventResponse()
         {
-            _eventsService = eventsService;
-        }
-
-        public async Task<AddEventResponse> Handle(AddEventCommand command, CancellationToken cancellationToken)
-        {
-            var id = await _eventsService.AddEvent(command);
-
-            return new AddEventResponse()
-            {
-                Id = id
-            };
-        }
+            Id = id
+        };
     }
 }

@@ -1,10 +1,9 @@
 ﻿using JetBrains.Annotations;
 using MediatR;
 
-namespace SenseEvents.Features.Events.GetEvents
+namespace SenseEvents.Features.Events.GetEvents;
+
+[UsedImplicitly] // Mediator
+public class GetEventsQuery : IRequest<GetEventsResponse>
 {
-    [UsedImplicitly] // Mediator
-    public class GetEventsQuery : IRequest<GetEventsResponse>
-    {
-    }
 }

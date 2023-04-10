@@ -1,24 +1,23 @@
 ﻿using JetBrains.Annotations;
 using MediatR;
 
-namespace SenseEvents.Features.Events.GetEvents
+namespace SenseEvents.Features.Events.GetEvents;
+
+[UsedImplicitly] // Mediator
+public class GetEventsHandler : IRequestHandler<GetEventsQuery, GetEventsResponse>
 {
-    [UsedImplicitly] // Mediator
-    public class GetEventsHandler : IRequestHandler<GetEventsQuery, GetEventsResponse>
+    private readonly IEventsService _eventsService;
+
+    public GetEventsHandler(IEventsService eventsService)
     {
-        private readonly IEventsService _eventsService;
+        _eventsService = eventsService;
+    }
 
-        public GetEventsHandler(IEventsService eventsService)
+    public async Task<GetEventsResponse> Handle(GetEventsQuery request, CancellationToken cancellationToken)
+    {
+        return new GetEventsResponse()
         {
-            _eventsService = eventsService;
-        }
-
-        public async Task<GetEventsResponse> Handle(GetEventsQuery request, CancellationToken cancellationToken)
-        {
-            return new GetEventsResponse()
-            {
-                Events = await _eventsService.GetEvents()
-            };
-        }
+            Events = await _eventsService.GetEvents()
+        };
     }
 }

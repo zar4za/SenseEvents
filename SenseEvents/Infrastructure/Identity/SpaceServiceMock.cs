@@ -1,10 +1,9 @@
-﻿namespace SenseEvents.Infrastructure.Identity
+﻿namespace SenseEvents.Infrastructure.Identity;
+
+public class SpaceServiceMock : ISpaceService
 {
-    public class SpaceServiceMock : ISpaceService
+    public bool SpaceExists(Guid id)
     {
-        public bool SpaceExists(Guid id)
-        {
-            return true;
-        }
+        return true;
     }
 }

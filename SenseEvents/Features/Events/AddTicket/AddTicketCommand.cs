@@ -2,30 +2,29 @@
 using JetBrains.Annotations;
 using MediatR;
 
-namespace SenseEvents.Features.Events.AddTicket
+namespace SenseEvents.Features.Events.AddTicket;
+
+/// <summary>
+/// Модель запроса для выдачи билета на мероприятие.
+/// </summary>
+public class AddTicketCommand : IRequest<AddTicketResponse>
 {
     /// <summary>
-    /// Модель запроса для выдачи билета на мероприятие.
+    /// Уникальный идентификатор мероприятия.
     /// </summary>
-    public class AddTicketCommand : IRequest<AddTicketResponse>
-    {
-        /// <summary>
-        /// Уникальный идентификатор мероприятия.
-        /// </summary>
 
-        [JsonIgnore]
-        public Guid EventId { get; set; }
+    [JsonIgnore]
+    public Guid EventId { get; set; }
 
-        /// <summary>
-        /// Идентификатор владельца билета.
-        /// </summary>
-        [UsedImplicitly] // json parsing
-        public Guid OwnerId { get; init; }
+    /// <summary>
+    /// Идентификатор владельца билета.
+    /// </summary>
+    [UsedImplicitly] // json parsing
+    public Guid OwnerId { get; init; }
 
-        /// <summary>
-        /// Номер места в пространстве.
-        /// </summary>
-        [UsedImplicitly] // json parsing
-        public int? Seat { get; init; }
-    }
+    /// <summary>
+    /// Номер места в пространстве.
+    /// </summary>
+    [UsedImplicitly] // json parsing
+    public int? Seat { get; init; }
 }

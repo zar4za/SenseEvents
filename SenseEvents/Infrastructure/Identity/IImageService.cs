@@ -1,7 +1,6 @@
-﻿namespace SenseEvents.Infrastructure.Identity
+﻿namespace SenseEvents.Infrastructure.Identity;
+
+public interface IImageService
 {
-    public interface IImageService
-    {
-        bool ImageExists(Guid id);
-    }
+    bool ImageExists(Guid id);
 }

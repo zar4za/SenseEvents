@@ -1,15 +1,14 @@
 ﻿using FluentValidation;
 using JetBrains.Annotations;
 
-namespace SenseEvents.Features.Events.AddTicket
+namespace SenseEvents.Features.Events.AddTicket;
+
+[UsedImplicitly] //used in middleware
+public class AddTicketValidator : AbstractValidator<AddTicketCommand>
 {
-    [UsedImplicitly] //used in middleware
-    public class AddTicketValidator : AbstractValidator<AddTicketCommand>
+    public AddTicketValidator()
     {
-        public AddTicketValidator()
-        {
-            RuleFor(x => x.EventId).NotEmpty();
-            RuleFor(x => x.OwnerId).NotEmpty();
-        }
+        RuleFor(x => x.EventId).NotEmpty();
+        RuleFor(x => x.OwnerId).NotEmpty();
     }
 }

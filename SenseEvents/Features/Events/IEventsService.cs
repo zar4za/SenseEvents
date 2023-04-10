@@ -1,18 +1,17 @@
 ﻿using SenseEvents.Features.Events.AddEvent;
 using SenseEvents.Features.Events.DeleteEvent;
 
-namespace SenseEvents.Features.Events
+namespace SenseEvents.Features.Events;
+
+public interface IEventsService
 {
-    public interface IEventsService
-    {
-        Task<Guid> AddEvent(AddEventCommand command);
+    Task<Guid> AddEvent(AddEventCommand command);
 
-        Task<IEnumerable<Event>> GetEvents();
+    Task<IEnumerable<Event>> GetEvents();
 
-        Task<Event> GetEvent(Guid id);
+    Task<Event> GetEvent(Guid id);
 
-        Task<bool> DeleteEvent(DeleteEventCommand command);
+    Task<bool> DeleteEvent(DeleteEventCommand command);
 
-        Task<Ticket> AddTicket(Guid eventId, Ticket ticket);
-    }
+    Task<Ticket> AddTicket(Guid eventId, Ticket ticket);
 }

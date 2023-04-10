@@ -1,15 +1,14 @@
 ﻿using FluentValidation;
 using JetBrains.Annotations;
 
-namespace SenseEvents.Features.Events.DeleteEvent
+namespace SenseEvents.Features.Events.DeleteEvent;
+
+[UsedImplicitly] // Mediator
+public class DeleteEventValidator : AbstractValidator<DeleteEventCommand>
 {
-    [UsedImplicitly] // Mediator
-    public class DeleteEventValidator : AbstractValidator<DeleteEventCommand>
+    public DeleteEventValidator()
     {
-        public DeleteEventValidator()
-        {
-            RuleFor(e => e.Id)
-                .NotEmpty();
-        }
+        RuleFor(e => e.Id)
+            .NotEmpty();
     }
 }

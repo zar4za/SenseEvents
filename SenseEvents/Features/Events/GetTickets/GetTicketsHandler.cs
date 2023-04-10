@@ -1,26 +1,25 @@
 ﻿using JetBrains.Annotations;
 using MediatR;
 
-namespace SenseEvents.Features.Events.GetTickets
+namespace SenseEvents.Features.Events.GetTickets;
+
+[UsedImplicitly] // Mediator
+public class GetTicketsHandler : IRequestHandler<GetTicketsQuery, GetTicketsResponse>
 {
-    [UsedImplicitly] // Mediator
-    public class GetTicketsHandler : IRequestHandler<GetTicketsQuery, GetTicketsResponse>
+    private readonly IEventsService _eventsService;
+
+    public GetTicketsHandler(IEventsService eventsService)
     {
-        private readonly IEventsService _eventsService;
+        _eventsService = eventsService;
+    }
 
-        public GetTicketsHandler(IEventsService eventsService)
+    public async Task<GetTicketsResponse> Handle(GetTicketsQuery request, CancellationToken cancellationToken)
+    {
+        var plannedEvent = await _eventsService.GetEvent(request.EventId);
+
+        return new GetTicketsResponse()
         {
-            _eventsService = eventsService;
-        }
-
-        public async Task<GetTicketsResponse> Handle(GetTicketsQuery request, CancellationToken cancellationToken)
-        {
-            var plannedEvent = await _eventsService.GetEvent(request.EventId);
-
-            return new GetTicketsResponse()
-            {
-                Tickets = plannedEvent.Tickets
-            };
-        }
+            Tickets = plannedEvent.Tickets
+        };
     }
 }
