@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SC.Internship.Common.ScResult;
 using SenseEvents.Features.Events.AddEvent;
@@ -63,7 +62,7 @@ public class EventsController : ControllerBase
     [ProducesResponseType(400, Type = typeof(ScError))]
     public async Task<IActionResult> DeleteEvent(Guid id)
     {
-        var command = new DeleteEventCommand()
+        var command = new DeleteEventCommand
         {
             Id = id
         };
@@ -77,7 +76,7 @@ public class EventsController : ControllerBase
     [HttpGet("{id:guid}/tickets")]
     public async Task<IActionResult> GetTickets(Guid id)
     {
-        var query = new GetTicketsQuery()
+        var query = new GetTicketsQuery
         {
             EventId = id
         };

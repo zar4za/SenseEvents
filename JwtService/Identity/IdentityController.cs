@@ -36,7 +36,7 @@ public class IdentityController : ControllerBase
                 key: new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_options.SecurityKey)),
                 algorithm: SecurityAlgorithms.HmacSha256));
 
-        return Ok(new GetTokenResponse()
+        return Ok(new GetTokenResponse
         {
             Token = new JwtSecurityTokenHandler().WriteToken(token)
         });

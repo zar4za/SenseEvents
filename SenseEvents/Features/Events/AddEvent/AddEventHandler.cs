@@ -17,7 +17,7 @@ public class AddEventHandler : IRequestHandler<AddEventCommand, AddEventResponse
     {
         var id = await _eventsService.AddEvent(command);
 
-        return new AddEventResponse()
+        return new AddEventResponse
         {
             Id = id
         };

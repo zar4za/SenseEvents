@@ -27,7 +27,7 @@ public class AddTicketHandler : IRequestHandler<AddTicketCommand, AddTicketRespo
 
         await _eventsService.AddTicket(request.EventId, ticket);
 
-        return new AddTicketResponse()
+        return new AddTicketResponse
         {
             Ticket = ticket
         };

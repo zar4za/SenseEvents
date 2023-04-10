@@ -12,7 +12,7 @@ public class StubController : ControllerBase
     [HttpGet("authstub")]
     public IActionResult Ping()
     {
-        return Ok(new PingResponse()
+        return Ok(new PingResponse
         {
             Message = "pong"
         });

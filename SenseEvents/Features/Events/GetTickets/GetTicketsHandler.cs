@@ -17,7 +17,7 @@ public class GetTicketsHandler : IRequestHandler<GetTicketsQuery, GetTicketsResp
     {
         var plannedEvent = await _eventsService.GetEvent(request.EventId);
 
-        return new GetTicketsResponse()
+        return new GetTicketsResponse
         {
             Tickets = plannedEvent.Tickets
         };
