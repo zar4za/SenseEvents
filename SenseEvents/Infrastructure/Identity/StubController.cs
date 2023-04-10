@@ -12,7 +12,7 @@ public class StubController : ControllerBase
 {
 
     [HttpGet("authstub")]
-    [ProducesResponseType(statusCode: 200, type: typeof(AddTicketResponse))]
+    [ProducesResponseType(statusCode: 200, type: typeof(PingResponse))]
     [ProducesResponseType(statusCode: 400, type: typeof(ScError))]
     [ProducesResponseType(statusCode: 401)]
     [ProducesResponseType(statusCode: 500, type: typeof(ScError))]
