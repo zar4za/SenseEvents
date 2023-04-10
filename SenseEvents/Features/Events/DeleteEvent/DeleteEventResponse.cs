@@ -1,16 +1,15 @@
 ﻿using JetBrains.Annotations;
 
-namespace SenseEvents.Features.Events.DeleteEvent
+namespace SenseEvents.Features.Events.DeleteEvent;
+
+/// <summary>
+/// Модель ответа на удаление мероприятия.
+/// </summary>
+public class DeleteEventResponse
 {
     /// <summary>
-    /// Модель ответа на удаление мероприятия.
+    /// Флаг, показывающий успешность удаления.
     /// </summary>
-    public class DeleteEventResponse
-    {
-        /// <summary>
-        /// Флаг, показывающий успешность удаления.
-        /// </summary>
-        [UsedImplicitly] // json serialization
-        public bool Success { get; set; }
-    }
+    [UsedImplicitly] // json serialization
+    public bool Success { get; set; }
 }

@@ -1,9 +1,8 @@
 ﻿using MediatR;
 
-namespace SenseEvents.Features.Events.GetTickets
+namespace SenseEvents.Features.Events.GetTickets;
+
+public class GetTicketsQuery : IRequest<GetTicketsResponse>
 {
-    public class GetTicketsQuery : IRequest<GetTicketsResponse>
-    {
-        public Guid EventId { get; init; }
-    }
+    public Guid EventId { get; init; }
 }

@@ -1,7 +1,6 @@
-﻿namespace SenseEvents.Infrastructure.Identity
+﻿namespace SenseEvents.Infrastructure.Identity;
+
+public interface IGuidService
 {
-    public interface IGuidService
-    {
-        Guid GetNewId();
-    }
+    Guid GetNewId();
 }

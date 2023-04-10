@@ -9,91 +9,90 @@ using SenseEvents.Features.Events.GetEvents;
 using SenseEvents.Features.Events.GetTickets;
 using SenseEvents.Features.Events.UpdateEvent;
 
-namespace SenseEvents.Features.Events
+namespace SenseEvents.Features.Events;
+
+[Route("api/[controller]")]
+[ApiController]
+public class EventsController : ControllerBase
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class EventsController : ControllerBase
+    private readonly IMediator _mediator;
+
+    public EventsController(IMediator mediator)
     {
-        private readonly IMediator _mediator;
+        _mediator = mediator;
+    }
 
-        public EventsController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
+    /// <summary>
+    /// Получение списка мероприятий
+    /// </summary>
+    [HttpGet]
+    [ProducesResponseType(200, Type = typeof(GetEventsResponse))]
+    [ProducesResponseType(400, Type = typeof(ScError))]
+    public async Task<IActionResult> GetEvents()
+    {
+        var events = await _mediator.Send(new GetEventsQuery());
+        return Ok(events);
+    }
 
-        /// <summary>
-        /// Получение списка мероприятий
-        /// </summary>
-        [HttpGet]
-        [ProducesResponseType(200, Type = typeof(GetEventsResponse))]
-        [ProducesResponseType(400, Type = typeof(ScError))]
-        public async Task<IActionResult> GetEvents()
-        {
-            var events = await _mediator.Send(new GetEventsQuery());
-            return Ok(events);
-        }
-
-        [HttpPost]
-        [ProducesResponseType(200, Type = typeof(AddEventResponse))]
-        [ProducesResponseType(400, Type = typeof(ScError))]
-        public async Task<IActionResult> AddEvent([FromBody] AddEventCommand command)
-        {
-            var eventId = await _mediator.Send(command);
-            return Ok(eventId);
-        }
+    [HttpPost]
+    [ProducesResponseType(200, Type = typeof(AddEventResponse))]
+    [ProducesResponseType(400, Type = typeof(ScError))]
+    public async Task<IActionResult> AddEvent([FromBody] AddEventCommand command)
+    {
+        var eventId = await _mediator.Send(command);
+        return Ok(eventId);
+    }
 
         
-        // ReSharper disable once RouteTemplates.ActionRoutePrefixCanBeExtractedToControllerRoute
-        // Not all methods need an id
-        [HttpPut("{id:guid}")]
-        [ProducesResponseType(200, Type = typeof(UpdateEventResponse))]
-        [ProducesResponseType(400, Type = typeof(ScError))]
-        public async Task<IActionResult> UpdateEvent(Guid id, [FromBody] UpdateEventCommand command)
+    // ReSharper disable once RouteTemplates.ActionRoutePrefixCanBeExtractedToControllerRoute
+    // Not all methods need an id
+    [HttpPut("{id:guid}")]
+    [ProducesResponseType(200, Type = typeof(UpdateEventResponse))]
+    [ProducesResponseType(400, Type = typeof(ScError))]
+    public async Task<IActionResult> UpdateEvent(Guid id, [FromBody] UpdateEventCommand command)
+    {
+        command.Id = id;
+        var success = await _mediator.Send(command);
+        return Ok(success);
+    }
+
+    // ReSharper disable once RouteTemplates.ActionRoutePrefixCanBeExtractedToControllerRoute
+    // Not all methods need an id
+    [HttpDelete("{id:guid}")]
+    [ProducesResponseType(200, Type = typeof(DeleteEventResponse))]
+    [ProducesResponseType(400, Type = typeof(ScError))]
+    public async Task<IActionResult> DeleteEvent(Guid id)
+    {
+        var command = new DeleteEventCommand()
         {
-            command.Id = id;
-            var success = await _mediator.Send(command);
-            return Ok(success);
-        }
+            Id = id
+        };
 
-        // ReSharper disable once RouteTemplates.ActionRoutePrefixCanBeExtractedToControllerRoute
-        // Not all methods need an id
-        [HttpDelete("{id:guid}")]
-        [ProducesResponseType(200, Type = typeof(DeleteEventResponse))]
-        [ProducesResponseType(400, Type = typeof(ScError))]
-        public async Task<IActionResult> DeleteEvent(Guid id)
+        var success = await _mediator.Send(command);
+        return Ok(success);
+    }
+
+    // ReSharper disable once RouteTemplates.ActionRoutePrefixCanBeExtractedToControllerRoute
+    // Not all methods need an id
+    [HttpGet("{id:guid}/tickets")]
+    public async Task<IActionResult> GetTickets(Guid id)
+    {
+        var query = new GetTicketsQuery()
         {
-            var command = new DeleteEventCommand()
-            {
-                Id = id
-            };
+            EventId = id
+        };
 
-            var success = await _mediator.Send(command);
-            return Ok(success);
-        }
+        var tickets = await _mediator.Send(query);
+        return Ok(tickets);
+    }
 
-        // ReSharper disable once RouteTemplates.ActionRoutePrefixCanBeExtractedToControllerRoute
-        // Not all methods need an id
-        [HttpGet("{id:guid}/tickets")]
-        public async Task<IActionResult> GetTickets(Guid id)
-        {
-            var query = new GetTicketsQuery()
-            {
-                EventId = id
-            };
-
-            var tickets = await _mediator.Send(query);
-            return Ok(tickets);
-        }
-
-        // ReSharper disable once RouteTemplates.ActionRoutePrefixCanBeExtractedToControllerRoute
-        // Not all methods need an id
-        [HttpPost("{id:guid}/tickets")]
-        public async Task<IActionResult> AddTicket(Guid id, AddTicketCommand command)
-        {
-            command.EventId = id;
-            var ticket = await _mediator.Send(command);
-            return Ok(ticket);
-        }
+    // ReSharper disable once RouteTemplates.ActionRoutePrefixCanBeExtractedToControllerRoute
+    // Not all methods need an id
+    [HttpPost("{id:guid}/tickets")]
+    public async Task<IActionResult> AddTicket(Guid id, AddTicketCommand command)
+    {
+        command.EventId = id;
+        var ticket = await _mediator.Send(command);
+        return Ok(ticket);
     }
 }

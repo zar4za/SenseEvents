@@ -1,7 +1,6 @@
-﻿namespace SenseEvents.Infrastructure.Identity
+﻿namespace SenseEvents.Infrastructure.Identity;
+
+public interface ISpaceService
 {
-    public interface ISpaceService
-    {
-        bool SpaceExists(Guid id);
-    }
+    bool SpaceExists(Guid id);
 }

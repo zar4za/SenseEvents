@@ -1,10 +1,9 @@
 ﻿using JetBrains.Annotations;
 
-namespace SenseEvents.Infrastructure.Identity
+namespace SenseEvents.Infrastructure.Identity;
+
+public class PingResponse
 {
-    public class PingResponse
-    {
-        [UsedImplicitly] // json serialization
-        public string Message { get; set; } = null!;
-    }
+    [UsedImplicitly] // json serialization
+    public string Message { get; set; } = null!;
 }
