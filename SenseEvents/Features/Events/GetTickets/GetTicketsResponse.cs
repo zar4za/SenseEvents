@@ -1,4 +1,6 @@
-﻿namespace SenseEvents.Features.Events.GetTickets
+﻿using JetBrains.Annotations;
+
+namespace SenseEvents.Features.Events.GetTickets
 {
     /// <summary>
     /// Модель ответа на запрос всех билетов на мероприятие.
@@ -8,6 +10,7 @@
         /// <summary>
         /// Коллекция выданных билетов на мероприятие.
         /// </summary>
+        [UsedImplicitly] // json serialization
         public IEnumerable<Ticket> Tickets { get; init; } = null!;
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace SenseEvents.Features.Events.AddEvent
+﻿using JetBrains.Annotations;
+
+namespace SenseEvents.Features.Events.AddEvent
 {
     /// <summary>
     /// Модель ответа на добавление мероприятия.
@@ -8,6 +10,7 @@
         /// <summary>
         /// Идентификатор, присвоенный добавленному мероприятию.
         /// </summary>
+        [UsedImplicitly] // json serialization
         public Guid Id { get; set; }
     }
 }
