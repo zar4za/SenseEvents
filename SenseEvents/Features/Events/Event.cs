@@ -61,7 +61,7 @@ public class Event
     public IEnumerable<Ticket> Tickets
     {
         get => _tickets;
-        init => _tickets = value.ToList();
+        init => _tickets = value?.ToList() ?? new List<Ticket>();
     }
 
     /// <summary>

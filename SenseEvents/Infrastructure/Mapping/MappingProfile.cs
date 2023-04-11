@@ -8,7 +8,11 @@ namespace SenseEvents.Infrastructure.Mapping
     {
         public MappingProfile()
         {
-            CreateMap<AddEventCommand, Event>();
+            CreateMap<AddEventCommand, Event>()
+                .ForMember(
+                    destinationMember: e => e.Tickets,
+                    memberOptions: o => o.MapFrom(
+                        mapExpression: _ => new List<Ticket>()));
         }
     }
 }

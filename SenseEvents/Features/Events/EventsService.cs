@@ -48,9 +48,10 @@ namespace SenseEvents.Features.Events
 
         public async Task<Ticket> AddTicket(Guid eventId, Ticket ticket)
         {
-            var cursor = await _events.FindAsync(x => x.Id == eventId);
-            var updateEvent = await cursor.SingleAsync();
-            updateEvent.AddTicket(ticket);
+            var filter = Builders<Event>.Filter.Eq("Id", eventId);
+            var update = Builders<Event>.Update.AddToSet("Tickets", ticket);
+
+            await _events.UpdateOneAsync(filter, update);
             return ticket;
         }
     }
