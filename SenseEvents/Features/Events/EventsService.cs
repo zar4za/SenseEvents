@@ -40,9 +40,10 @@ namespace SenseEvents.Features.Events
             return await cursor.SingleAsync();
         }
 
-        public Task<bool> DeleteEvent(DeleteEventCommand command)
+        public async Task<bool> DeleteEvent(Guid id)
         {
-            throw new NotImplementedException();
+            var deleted = await _events.FindOneAndDeleteAsync(x => x.Id == id);
+            return deleted != null;
         }
 
         public Task<Ticket> AddTicket(Guid eventId, Ticket ticket)
