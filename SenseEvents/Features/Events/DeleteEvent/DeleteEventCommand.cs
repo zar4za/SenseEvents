@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
 
 namespace SenseEvents.Features.Events.DeleteEvent;
 
@@ -10,5 +11,6 @@ public class DeleteEventCommand : IRequest<DeleteEventResponse>
     /// <summary>
     /// Идентификатор удаляемого мероприятия.
     /// </summary>
+    [FromRoute(Name = "id")]
     public Guid Id { get; init; }
 }
