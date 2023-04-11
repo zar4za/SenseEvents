@@ -8,6 +8,7 @@ using SenseEvents.Infrastructure.Identity;
 using SenseEvents.Infrastructure.Validation;
 using System.Reflection;
 using System.Text;
+using SenseEvents.Infrastructure.Mapping;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,7 +34,7 @@ builder.Services.AddSwaggerGen(options =>
         Scheme = "Bearer"
     });
 });
-
+builder.Services.Configure<EventsMongoOptions>(builder.Configuration.GetSection(EventsMongoOptions.ConfigSection));
 builder.Services.AddSingleton<IGuidService, GuidService>();
 builder.Services.AddSingleton<IEventsService, EventsService>();
 builder.Services.AddTransient<IImageService, ImageServiceMock>();
@@ -64,7 +65,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-
+builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddMediatR(options =>
 {
     options.RegisterServicesFromAssembly(typeof(Program).Assembly);
