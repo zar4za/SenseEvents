@@ -1,5 +1,7 @@
-﻿using JetBrains.Annotations;
+﻿using AutoMapper;
+using JetBrains.Annotations;
 using MediatR;
+using SenseEvents.Infrastructure.Identity;
 
 namespace SenseEvents.Features.Events.AddEvent;
 
@@ -7,15 +9,20 @@ namespace SenseEvents.Features.Events.AddEvent;
 public class AddEventHandler : IRequestHandler<AddEventCommand, AddEventResponse>
 {
     private readonly IEventsService _eventsService;
+    private readonly IGuidService _guidService;
+    private readonly IMapper _mapper;
 
-    public AddEventHandler(IEventsService eventsService)
+    public AddEventHandler(IEventsService eventsService, IGuidService guidService, IMapper mapper)
     {
         _eventsService = eventsService;
+        _guidService = guidService;
+        _mapper = mapper;
     }
 
     public async Task<AddEventResponse> Handle(AddEventCommand command, CancellationToken cancellationToken)
     {
-        var id = await _eventsService.AddEvent(command);
+        var newEvent = _mapper.Map<Event>(command);
+        var id = await _eventsService.AddEvent(newEvent);
 
         return new AddEventResponse
         {

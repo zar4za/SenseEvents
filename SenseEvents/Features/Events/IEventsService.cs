@@ -5,7 +5,7 @@ namespace SenseEvents.Features.Events;
 
 public interface IEventsService
 {
-    Task<Guid> AddEvent(AddEventCommand command);
+    Task<Guid> AddEvent(Event newEvent);
 
     Task<IEnumerable<Event>> GetEvents();
 
