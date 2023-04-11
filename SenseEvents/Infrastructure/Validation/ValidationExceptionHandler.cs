@@ -45,7 +45,7 @@ public class ValidationExceptionHandlingMiddleware : IMiddleware
                 };
                 break;
             case InvalidOperationException invalidOperationException:
-                httpContext.Response.StatusCode = 500;
+                httpContext.Response.StatusCode = 400;
                 scResult.Error = new ScError
                 {
                     Message = invalidOperationException.Message

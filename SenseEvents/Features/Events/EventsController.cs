@@ -27,7 +27,6 @@ public class EventsController : ControllerBase
     [HttpGet]
     [ProducesResponseType(statusCode: 200, type: typeof(GetEventsResponse))]
     [ProducesResponseType(statusCode: 400, type: typeof(ScError))]
-    [ProducesResponseType(statusCode: 500, type: typeof(ScError))]
     public async Task<IActionResult> GetEvents()
     {
         var events = await _mediator.Send(new GetEventsQuery());
@@ -42,7 +41,6 @@ public class EventsController : ControllerBase
     [HttpPost]
     [ProducesResponseType(statusCode: 200, type: typeof(AddEventResponse))]
     [ProducesResponseType(statusCode: 400, type: typeof(ScError))]
-    [ProducesResponseType(statusCode: 500, type: typeof(ScError))]
     public async Task<IActionResult> AddEvent([FromBody] AddEventCommand command)
     {
         var eventId = await _mediator.Send(command);
@@ -60,7 +58,6 @@ public class EventsController : ControllerBase
     [HttpPut("{id:guid}")]
     [ProducesResponseType(statusCode: 200, type: typeof(UpdateEventResponse))]
     [ProducesResponseType(statusCode: 400, type: typeof(ScError))]
-    [ProducesResponseType(statusCode: 500, type: typeof(ScError))]
     public async Task<IActionResult> UpdateEvent(Guid id, [FromBody] UpdateEventCommand command)
     {
         command.Id = id;
@@ -112,7 +109,6 @@ public class EventsController : ControllerBase
     [HttpPost("{id:guid}/tickets")]
     [ProducesResponseType(statusCode: 200, type: typeof(AddTicketResponse))]
     [ProducesResponseType(statusCode: 400, type: typeof(ScError))]
-    [ProducesResponseType(statusCode: 500, type: typeof(ScError))]
     public async Task<IActionResult> AddTicket(Guid id, AddTicketCommand command)
     {
         command.EventId = id;
