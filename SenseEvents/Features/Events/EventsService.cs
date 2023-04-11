@@ -29,9 +29,9 @@ namespace SenseEvents.Features.Events
             return newEvent.Id;
         }
 
-        public Task<IEnumerable<Event>> GetEvents()
+        public async Task<IEnumerable<Event>> GetEvents()
         {
-            throw new NotImplementedException();
+            return await Task.FromResult(_events.AsQueryable());
         }
 
         public Task<Event> GetEvent(Guid id)
