@@ -14,7 +14,7 @@ public class Event
     /// Уникальный идентификатор мероприятия.
     /// </summary>
     [UsedImplicitly] // json serialization
-    public Guid Id { get; init; }
+    public Guid Id { get; set; }
 
     /// <summary>
     /// Время начала мероприятия.

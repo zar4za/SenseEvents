@@ -35,7 +35,7 @@ builder.Services.AddSwaggerGen(options =>
 });
 
 builder.Services.AddSingleton<IGuidService, GuidService>();
-builder.Services.AddSingleton<IEventsService, EventsServiceMock>();
+builder.Services.AddSingleton<IEventsService, EventsService>();
 builder.Services.AddTransient<IImageService, ImageServiceMock>();
 builder.Services.AddTransient<ISpaceService, SpaceServiceMock>();
 builder.Services.AddCors(options =>
