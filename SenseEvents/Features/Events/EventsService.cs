@@ -34,9 +34,10 @@ namespace SenseEvents.Features.Events
             return await Task.FromResult(_events.AsQueryable());
         }
 
-        public Task<Event> GetEvent(Guid id)
+        public async Task<Event> GetEvent(Guid id)
         {
-            throw new NotImplementedException();
+            var cursor = await _events.FindAsync(x => x.Id == id);
+            return await cursor.SingleAsync();
         }
 
         public Task<bool> DeleteEvent(DeleteEventCommand command)
