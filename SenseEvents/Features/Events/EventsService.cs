@@ -46,9 +46,12 @@ namespace SenseEvents.Features.Events
             return deleted != null;
         }
 
-        public Task<Ticket> AddTicket(Guid eventId, Ticket ticket)
+        public async Task<Ticket> AddTicket(Guid eventId, Ticket ticket)
         {
-            throw new NotImplementedException();
+            var cursor = await _events.FindAsync(x => x.Id == eventId);
+            var updateEvent = await cursor.SingleAsync();
+            updateEvent.AddTicket(ticket);
+            return ticket;
         }
     }
 }
