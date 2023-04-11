@@ -71,21 +71,15 @@ public class EventsController : ControllerBase
     /// <summary>
     /// Удаление мероприятия
     /// </summary>
-    /// <param name="id">Guid мероприятия</param>
-    /// <returns></returns>
     // ReSharper disable once RouteTemplates.ActionRoutePrefixCanBeExtractedToControllerRoute
     // Not all methods need an id
+    // ReSharper disable once RouteTemplates.RouteParameterIsNotPassedToMethod
     [HttpDelete("{id:guid}")]
     [ProducesResponseType(statusCode: 200, type: typeof(DeleteEventResponse))]
     [ProducesResponseType(statusCode: 400, type: typeof(ScError))]
-    [ProducesResponseType(statusCode: 500, type: typeof(ScError))]
-    public async Task<IActionResult> DeleteEvent(Guid id)
+    // ReSharper disable once RouteTemplates.MethodMissingRouteParameters
+    public async Task<IActionResult> DeleteEvent([FromQuery] DeleteEventCommand command)
     {
-        var command = new DeleteEventCommand
-        {
-            Id = id
-        };
-
         var success = await _mediator.Send(command);
         return Ok(success);
     }
@@ -100,7 +94,7 @@ public class EventsController : ControllerBase
     [HttpGet("{id:guid}/tickets")]
     [ProducesResponseType(statusCode: 200, type: typeof(GetTicketsResponse))]
     [ProducesResponseType(statusCode: 400, type: typeof(ScError))]
-    [ProducesResponseType(statusCode: 500, type: typeof(ScError))]
+    // ReSharper disable once RouteTemplates.MethodMissingRouteParameters
     public async Task<IActionResult> GetTickets([FromQuery] GetTicketsQuery query)
     {
         var tickets = await _mediator.Send(query);
