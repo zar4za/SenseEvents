@@ -15,7 +15,7 @@ public class DeleteEventHandler : IRequestHandler<DeleteEventCommand, DeleteEven
 
     public async Task<DeleteEventResponse> Handle(DeleteEventCommand request, CancellationToken cancellationToken)
     {
-        var success = await  _eventsService.DeleteEvent(request);
+        var success = await  _eventsService.DeleteEvent(request.Id);
         return new DeleteEventResponse
         {
             Success = success
