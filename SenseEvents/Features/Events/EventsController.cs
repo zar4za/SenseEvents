@@ -93,21 +93,16 @@ public class EventsController : ControllerBase
     /// <summary>
     /// Получение выданных билетов на мероприятие
     /// </summary>
-    /// <param name="id">Guid мероприятия</param>
-    /// <returns></returns>
     // ReSharper disable once RouteTemplates.ActionRoutePrefixCanBeExtractedToControllerRoute
-    // Not all methods need an id
+    //      Not all methods need an id
+    // ReSharper disable once RouteTemplates.RouteParameterIsNotPassedToMethod
+    //      id is passed to GetTicketsQuery.EventId
     [HttpGet("{id:guid}/tickets")]
     [ProducesResponseType(statusCode: 200, type: typeof(GetTicketsResponse))]
     [ProducesResponseType(statusCode: 400, type: typeof(ScError))]
     [ProducesResponseType(statusCode: 500, type: typeof(ScError))]
-    public async Task<IActionResult> GetTickets(Guid id)
+    public async Task<IActionResult> GetTickets([FromQuery] GetTicketsQuery query)
     {
-        var query = new GetTicketsQuery
-        {
-            EventId = id
-        };
-
         var tickets = await _mediator.Send(query);
         return Ok(tickets);
     }
