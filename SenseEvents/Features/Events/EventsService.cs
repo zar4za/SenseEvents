@@ -47,12 +47,16 @@ namespace SenseEvents.Features.Events
         public async Task<Ticket> AddTicket(Guid eventId, Ticket ticket)
         {
             var filter = Builders<Event>.Filter.Eq("Id", eventId);
-            var update = Builders<Event>.Update.AddToSet("Tickets", ticket);
             var cursor = await _events.FindAsync(filter);
+            var planned = await cursor.FirstAsync();
 
-            if (!cursor.First().CanIssueTicket)
+            if (planned?.CanIssueTicket == false)
                 throw new InvalidOperationException("Reached ticket limit");
 
+            var seat = planned!.Tickets.Count() + 1;
+            ticket.Seat = seat;
+
+            var update = Builders<Event>.Update.AddToSet("Tickets", ticket);
             await _events.FindOneAndUpdateAsync(filter, update);
             return ticket;
         }

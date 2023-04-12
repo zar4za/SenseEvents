@@ -9,13 +9,11 @@ namespace SenseEvents.Features.Events.AddEvent;
 public class AddEventHandler : IRequestHandler<AddEventCommand, AddEventResponse>
 {
     private readonly IEventsService _eventsService;
-    private readonly IGuidService _guidService;
     private readonly IMapper _mapper;
 
-    public AddEventHandler(IEventsService eventsService, IGuidService guidService, IMapper mapper)
+    public AddEventHandler(IEventsService eventsService, IMapper mapper)
     {
         _eventsService = eventsService;
-        _guidService = guidService;
         _mapper = mapper;
     }
 
