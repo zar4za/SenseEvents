@@ -1,4 +1,5 @@
-﻿using JetBrains.Annotations;
+﻿using AutoMapper;
+using JetBrains.Annotations;
 using MediatR;
 
 namespace SenseEvents.Features.Events.UpdateEvent;
@@ -7,27 +8,24 @@ namespace SenseEvents.Features.Events.UpdateEvent;
 public class UpdateEventHandler : IRequestHandler<UpdateEventCommand, UpdateEventResponse>
 {
     private readonly IEventsService _eventsService;
+    private readonly IMapper _mapper;
 
-    public UpdateEventHandler(IEventsService eventsService)
+    public UpdateEventHandler(IEventsService eventsService, IMapper mapper)
     {
         _eventsService = eventsService;
+        _mapper = mapper;
     }
 
 
     public async Task<UpdateEventResponse> Handle(UpdateEventCommand request, CancellationToken cancellationToken)
     {
-        var storedEvent = await _eventsService.GetEvent(request.Id);
-            
-        storedEvent.StartUtc = request.StartUtc;
-        storedEvent.EndUtc = request.EndUtc;
-        storedEvent.Description = request.Description;
-        storedEvent.Name = request.Name;
-        storedEvent.ImageId = request.ImageId;
-        storedEvent.SpaceId = request.SpaceId;
+        var update = _mapper.Map<Event>(request);
+
+        var success = await _eventsService.UpdateEvent(update);
 
         return new UpdateEventResponse
         {
-            Success = true
+            Success = success
         };
     }
 }

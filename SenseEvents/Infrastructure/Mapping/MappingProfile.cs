@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using SenseEvents.Features.Events;
 using SenseEvents.Features.Events.AddEvent;
+using SenseEvents.Features.Events.UpdateEvent;
 
 namespace SenseEvents.Infrastructure.Mapping
 {
@@ -13,6 +14,8 @@ namespace SenseEvents.Infrastructure.Mapping
                     destinationMember: e => e.Tickets,
                     memberOptions: o => o.MapFrom(
                         mapExpression: _ => new List<Ticket>()));
+
+            CreateMap<UpdateEventCommand, Event>();
         }
     }
 }
