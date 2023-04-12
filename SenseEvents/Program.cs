@@ -75,11 +75,8 @@ builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly, ServiceLife
 builder.Services.AddTransient<ValidationExceptionHandlingMiddleware>();
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseCors("AllowAny");
 app.UseMiddleware<ValidationExceptionHandlingMiddleware>();
