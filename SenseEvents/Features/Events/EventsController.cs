@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SC.Internship.Common.ScResult;
 using SenseEvents.Features.Events.AddEvent;
@@ -12,6 +13,7 @@ namespace SenseEvents.Features.Events;
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize]
 public class EventsController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -27,6 +29,7 @@ public class EventsController : ControllerBase
     [HttpGet]
     [ProducesResponseType(statusCode: 200, type: typeof(GetEventsResponse))]
     [ProducesResponseType(statusCode: 400, type: typeof(ScError))]
+    [ProducesResponseType(statusCode: 401)]
     public async Task<IActionResult> GetEvents()
     {
         var events = await _mediator.Send(new GetEventsQuery());
@@ -41,6 +44,7 @@ public class EventsController : ControllerBase
     [HttpPost]
     [ProducesResponseType(statusCode: 200, type: typeof(AddEventResponse))]
     [ProducesResponseType(statusCode: 400, type: typeof(ScError))]
+    [ProducesResponseType(statusCode: 401)]
     public async Task<IActionResult> AddEvent([FromBody] AddEventCommand command)
     {
         var eventId = await _mediator.Send(command);
@@ -58,6 +62,7 @@ public class EventsController : ControllerBase
     [HttpPut("{id:guid}")]
     [ProducesResponseType(statusCode: 200, type: typeof(UpdateEventResponse))]
     [ProducesResponseType(statusCode: 400, type: typeof(ScError))]
+    [ProducesResponseType(statusCode: 401)]
     public async Task<IActionResult> UpdateEvent(Guid id, [FromBody] UpdateEventCommand command)
     {
         command.Id = id;
@@ -74,6 +79,7 @@ public class EventsController : ControllerBase
     [HttpDelete("{id:guid}")]
     [ProducesResponseType(statusCode: 200, type: typeof(DeleteEventResponse))]
     [ProducesResponseType(statusCode: 400, type: typeof(ScError))]
+    [ProducesResponseType(statusCode: 401)]
     // ReSharper disable once RouteTemplates.MethodMissingRouteParameters
     public async Task<IActionResult> DeleteEvent([FromQuery] DeleteEventCommand command)
     {
@@ -91,6 +97,7 @@ public class EventsController : ControllerBase
     [HttpGet("{id:guid}/tickets")]
     [ProducesResponseType(statusCode: 200, type: typeof(GetTicketsResponse))]
     [ProducesResponseType(statusCode: 400, type: typeof(ScError))]
+    [ProducesResponseType(statusCode: 401)]
     // ReSharper disable once RouteTemplates.MethodMissingRouteParameters
     public async Task<IActionResult> GetTickets([FromQuery] GetTicketsQuery query)
     {
@@ -109,6 +116,7 @@ public class EventsController : ControllerBase
     [HttpPost("{id:guid}/tickets")]
     [ProducesResponseType(statusCode: 200, type: typeof(AddTicketResponse))]
     [ProducesResponseType(statusCode: 400, type: typeof(ScError))]
+    [ProducesResponseType(statusCode: 401)]
     public async Task<IActionResult> AddTicket(Guid id, AddTicketCommand command)
     {
         command.EventId = id;
