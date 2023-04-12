@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using JetBrains.Annotations;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace SenseEvents.Features.Events.GetTickets;
@@ -6,5 +7,5 @@ namespace SenseEvents.Features.Events.GetTickets;
 public class GetTicketsQuery : IRequest<GetTicketsResponse>
 {
     [FromRoute(Name = "id")]
-    public Guid EventId { get; init; }
+    public Guid EventId { get; [UsedImplicitly] init; } // route binding
 }
