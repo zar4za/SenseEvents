@@ -1,7 +1,5 @@
 ﻿using Microsoft.Extensions.Options;
 using MongoDB.Driver;
-using SenseEvents.Features.Events.AddEvent;
-using SenseEvents.Features.Events.DeleteEvent;
 using SenseEvents.Infrastructure.Identity;
 
 namespace SenseEvents.Features.Events
@@ -50,8 +48,12 @@ namespace SenseEvents.Features.Events
         {
             var filter = Builders<Event>.Filter.Eq("Id", eventId);
             var update = Builders<Event>.Update.AddToSet("Tickets", ticket);
+            var cursor = await _events.FindAsync(filter);
 
-            await _events.UpdateOneAsync(filter, update);
+            if (!cursor.First().CanIssueTicket)
+                throw new InvalidOperationException("Reached ticket limit");
+
+            await _events.FindOneAndUpdateAsync(filter, update);
             return ticket;
         }
     }
