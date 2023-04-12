@@ -8,5 +8,15 @@ services:
     build: 
       context: .
       dockerfile: SenseEvents/Dockerfile
+    environment:
+      - "Mongo:ConnectionString=mongodb://root:foobar@mongo:27017"
     ports:
       - "8080:80"
+  mongo:
+    image: mongo:6.0.5
+    environment:            
+      - MONGO_INITDB_ROOT_USERNAME=root            
+      - MONGO_INITDB_ROOT_PASSWORD=foobar        
+    ports:
+      - "27017:27017"
+    restart: always
