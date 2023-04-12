@@ -1,66 +1,58 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NuGet.Frameworks;
-using SenseEvents.Features.Events;
+﻿using SenseEvents.Features.Events;
 using SenseEvents.Features.Events.AddTicket;
 using SenseEvents.Infrastructure.Identity;
 
-namespace SenseEvents.Tests.Features.Events.AddTicket
+namespace SenseEvents.Tests.Features.Events.AddTicket;
+
+[TestFixture]
+internal class AddTicketTests
 {
-    [TestFixture]
-    internal class AddTicketTests
+    private Guid _ticketGuid;
+    private IGuidService _guidService = null!;
+
+    [SetUp]
+    public void SetUp()
     {
-        private Guid _ticketGuid;
-        private IGuidService _guidService;
-        private IEventsService _eventsService;
+        _ticketGuid = Guid.NewGuid();
+        var guidService = new Mock<IGuidService>();
+        guidService
+            .Setup(x => x.GetNewId())
+            .Returns(_ticketGuid);
 
-        [SetUp]
-        public void SetUp()
+        _guidService = guidService.Object;
+    }
+
+
+    [Test]
+    public async Task Handle_EventExists_ShouldAddTicket()
+    {
+        var eventId = Guid.NewGuid();
+        var ownerId = Guid.NewGuid();
+        var command = new AddTicketCommand
         {
-            _ticketGuid = Guid.NewGuid();
-            var guidService = new Mock<IGuidService>();
-            guidService
-                .Setup(x => x.GetNewId())
-                .Returns(_ticketGuid);
+            EventId = eventId,
+            OwnerId = ownerId
+        };
 
-            _guidService = guidService.Object;
-        }
-
-
-        [Test]
-        public async Task Handle_EventExists_ShouldAddTicket()
+        var ticket = new Ticket
         {
-            var eventId = Guid.NewGuid();
-            var ownerId = Guid.NewGuid();
-            var command = new AddTicketCommand
-            {
-                EventId = eventId,
-                OwnerId = ownerId
-            };
+            Id = _ticketGuid,
+            OwnerId = ownerId,
+            Seat = 1
+        };
 
-            var ticket = new Ticket
-            {
-                Id = _ticketGuid,
-                OwnerId = ownerId,
-                Seat = 1
-            };
+        var eventsService = new Mock<IEventsService>();
+        eventsService
+            .Setup(x => x.AddTicket(eventId, ticket))
+            .ReturnsAsync(ticket);
 
-            var eventsService = new Mock<IEventsService>();
-            eventsService
-                .Setup(x => x.AddTicket(eventId, ticket))
-                .ReturnsAsync(ticket);
-
-            var handler = new AddTicketHandler(_guidService, eventsService.Object);
+        var handler = new AddTicketHandler(_guidService, eventsService.Object);
 
 
-            var result = await handler.Handle(command, CancellationToken.None);
+        var result = await handler.Handle(command, CancellationToken.None);
 
 
-            Assert.That(result, Is.Not.Null);
-            Assert.That(result.Ticket.Id, Is.EqualTo(ticket.Id));
-        }
+        Assert.That(result, Is.Not.Null);
+        Assert.That(result.Ticket.Id, Is.EqualTo(ticket.Id));
     }
 }
