@@ -23,5 +23,5 @@ public class Ticket
     /// Номер места в пространстве. Может не указываться.
     /// </summary>
     [UsedImplicitly] // json serialization
-    public int? Seat { get; set; }
+    public int Seat { get; set; }
 }

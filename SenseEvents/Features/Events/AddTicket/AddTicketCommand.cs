@@ -21,10 +21,4 @@ public class AddTicketCommand : IRequest<AddTicketResponse>
     /// </summary>
     [UsedImplicitly] // json parsing
     public Guid OwnerId { get; init; }
-
-    /// <summary>
-    /// Номер места в пространстве.
-    /// </summary>
-    [UsedImplicitly] // json parsing
-    public int? Seat { get; init; }
 }

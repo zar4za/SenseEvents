@@ -21,8 +21,7 @@ public class AddTicketHandler : IRequestHandler<AddTicketCommand, AddTicketRespo
         var ticket = new Ticket
         {
             Id = _guidService.GetNewId(),
-            OwnerId = request.OwnerId,
-            Seat = request.Seat
+            OwnerId = request.OwnerId
         };
 
         await _eventsService.AddTicket(request.EventId, ticket);
