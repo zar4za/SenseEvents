@@ -60,5 +60,21 @@ namespace SenseEvents.Features.Events
             await _events.FindOneAndUpdateAsync(filter, update);
             return ticket;
         }
+
+        public async Task<bool> UpdateEvent(Event eventUpdate)
+        {
+            var update = Builders<Event>.Update
+                .Set(x => x.Name, eventUpdate.Name)
+                .Set(x => x.Description, eventUpdate.Description)
+                .Set(x => x.StartUtc, eventUpdate.StartUtc)
+                .Set(x => x.EndUtc, eventUpdate.EndUtc)
+                .Set(x => x.ImageId, eventUpdate.ImageId)
+                .Set(x => x.SpaceId, eventUpdate.SpaceId);
+
+            var filter = Builders<Event>.Filter.Eq(x => x.Id, eventUpdate.Id);
+
+            var result = await _events.UpdateOneAsync(filter, update);
+            return result.IsAcknowledged;
+        }
     }
 }

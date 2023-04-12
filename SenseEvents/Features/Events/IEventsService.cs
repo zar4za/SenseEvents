@@ -14,4 +14,6 @@ public interface IEventsService
     Task<bool> DeleteEvent(Guid id);
 
     Task<Ticket> AddTicket(Guid eventId, Ticket ticket);
+
+    Task<bool> UpdateEvent(Event update);
 }

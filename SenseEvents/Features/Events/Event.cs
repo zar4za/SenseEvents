@@ -53,7 +53,7 @@ public class Event
     public Guid SpaceId { get; set; }
 
     [JsonIgnore]
-    public int? MaxTickets { private get; init; }
+    public int MaxTickets { private get; init; }
 
     /// <summary>
     /// Коллекция выданных билетов на это мероприятие.
@@ -68,14 +68,5 @@ public class Event
     /// Можно ли выпустить еще один билет на данное мероприятие.
     /// </summary>
     [UsedImplicitly]
-    public bool CanIssueTicket => MaxTickets is null || Tickets.Count() < MaxTickets;
-
-    /// <summary>
-    /// Добавляет билет в коллекцию билетов.
-    /// </summary>
-    /// <param name="ticket">Билет, который будет добавлен.</param>
-    public void AddTicket(Ticket ticket)
-    {
-        _tickets.Add(ticket);
-    }
+    public bool CanIssueTicket => Tickets.Count() < MaxTickets;
 }
