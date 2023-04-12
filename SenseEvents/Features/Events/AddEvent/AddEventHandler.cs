@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using JetBrains.Annotations;
 using MediatR;
-using SenseEvents.Infrastructure.Identity;
 
 namespace SenseEvents.Features.Events.AddEvent;
 

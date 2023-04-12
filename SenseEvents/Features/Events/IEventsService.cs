@@ -1,7 +1,4 @@
-﻿using SenseEvents.Features.Events.AddEvent;
-using SenseEvents.Features.Events.DeleteEvent;
-
-namespace SenseEvents.Features.Events;
+﻿namespace SenseEvents.Features.Events;
 
 public interface IEventsService
 {

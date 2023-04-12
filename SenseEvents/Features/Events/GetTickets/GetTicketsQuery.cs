@@ -1,5 +1,4 @@
-﻿using System.Text.Json.Serialization;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace SenseEvents.Features.Events.GetTickets;

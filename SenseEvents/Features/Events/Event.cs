@@ -1,5 +1,5 @@
-﻿using System.Text.Json.Serialization;
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
+using System.Text.Json.Serialization;
 
 namespace SenseEvents.Features.Events;
 
@@ -61,7 +61,7 @@ public class Event
     public IEnumerable<Ticket> Tickets
     {
         get => _tickets;
-        init => _tickets = value?.ToList() ?? new List<Ticket>();
+        init => _tickets = value.ToList();
     }
 
     /// <summary>
