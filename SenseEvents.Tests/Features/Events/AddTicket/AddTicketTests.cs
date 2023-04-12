@@ -33,7 +33,6 @@ namespace SenseEvents.Tests.Features.Events.AddTicket
         [Test]
         public async Task Handle_EventExists_ShouldAddTicket()
         {
-            var ticketId = Guid.NewGuid();
             var eventId = Guid.NewGuid();
             var ownerId = Guid.NewGuid();
             var command = new AddTicketCommand
@@ -58,6 +57,7 @@ namespace SenseEvents.Tests.Features.Events.AddTicket
 
 
             var result = await handler.Handle(command, CancellationToken.None);
+
 
             Assert.That(result, Is.Not.Null);
             Assert.That(result.Ticket.Id, Is.EqualTo(ticket.Id));
