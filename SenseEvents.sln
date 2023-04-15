@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JwtService", "JwtService\Jw
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SenseEvents.Tests", "SenseEvents.Tests\SenseEvents.Tests.csproj", "{40185C64-5293-4D69-8ACF-F90408739EDD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageService", "ImageService\ImageService.csproj", "{58AF7095-9D5A-4008-8169-86D7012A25FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImageService", "ImageService\ImageService.csproj", "{58AF7095-9D5A-4008-8169-86D7012A25FF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpaceService", "SpaceService\SpaceService.csproj", "{CF3FFFA1-7BE8-4ACB-86A3-44AF899A1DD6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{58AF7095-9D5A-4008-8169-86D7012A25FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{58AF7095-9D5A-4008-8169-86D7012A25FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{58AF7095-9D5A-4008-8169-86D7012A25FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF3FFFA1-7BE8-4ACB-86A3-44AF899A1DD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF3FFFA1-7BE8-4ACB-86A3-44AF899A1DD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF3FFFA1-7BE8-4ACB-86A3-44AF899A1DD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF3FFFA1-7BE8-4ACB-86A3-44AF899A1DD6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
