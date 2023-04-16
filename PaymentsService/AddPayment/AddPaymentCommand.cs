@@ -1,9 +1,12 @@
-﻿namespace PaymentsService.AddPayment
-{
-    public class AddPaymentCommand
-    {
-        public string Description { get; set; }
+﻿using JetBrains.Annotations;
 
-        public decimal Amount { get; set; }
-    }
+namespace PaymentsService.AddPayment;
+
+public class AddPaymentCommand
+{
+    [UsedImplicitly]
+    public string Description { get; set; } = null!;
+
+    [UsedImplicitly] 
+    public decimal Amount { get; set; }
 }

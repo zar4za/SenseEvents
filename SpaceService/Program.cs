@@ -11,7 +11,7 @@ app.UseSwagger();
 app.UseSwaggerUI();
 
 // ReSharper disable once RouteTemplates.RouteParameterIsNotPassedToMethod
-app.MapGet("/api/images/{id:guid}", ([FromRoute] Guid id) => new SpaceResponse()
+app.MapGet("/api/images/{id:guid}", ([FromRoute] Guid id) => new SpaceResponse
     {
         Exists = true
     }).WithOpenApi()
@@ -30,7 +30,7 @@ app.Use((context, next) =>
     context.Response.ContentType = "application/json";
     return context.Response.WriteAsJsonAsync(new ScResult
     {
-        Error = new ScError()
+        Error = new ScError
         {
             Message = "Unauthorized"
         }

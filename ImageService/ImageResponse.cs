@@ -1,7 +1,6 @@
-﻿namespace ImageService
+﻿namespace ImageService;
+
+public class ImageResponse
 {
-    public class ImageResponse
-    {
-        public bool Exists { get; set; }
-    }
+    public bool Exists { get; set; }
 }

@@ -1,9 +1,8 @@
-﻿namespace PaymentsService
+﻿namespace PaymentsService;
+
+public enum PaymentState
 {
-    public enum PaymentState
-    {
-        Hold,
-        Confirmed,
-        Canceled
-    }
+    Hold,
+    Confirmed,
+    Canceled
 }
