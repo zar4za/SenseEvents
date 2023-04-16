@@ -1,19 +1,22 @@
-﻿namespace PaymentsService
+﻿using JetBrains.Annotations;
+
+namespace PaymentsService;
+
+public class Payment
 {
-    public class Payment
-    {
-        public Guid Id { get; set; }
+    public Guid Id { get; set; }
 
-        public PaymentState State { get; set; }
+    public PaymentState State { get; set; }
         
-        public DateTimeOffset DateCreation { get; set; }
+    public DateTimeOffset DateCreation { get; set; }
 
-        public DateTimeOffset? DateConfirmation { get; set; }
+    public DateTimeOffset? DateConfirmation { get; set; }
 
-        public DateTimeOffset? DateCancellation { get; set; }
+    public DateTimeOffset? DateCancellation { get; set; }
 
-        public decimal Amount { get; set; }
+    [UsedImplicitly]
+    public decimal Amount { get; set; }
 
-        public string Description { get; set; }
-    }
+    [UsedImplicitly]
+    public string Description { get; set; } = null!;
 }

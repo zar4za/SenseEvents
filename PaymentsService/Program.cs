@@ -3,7 +3,6 @@ using PaymentsService.AddPayment;
 using SC.Internship.Common.ScResult;
 using AutoMapper;
 using PaymentsService;
-using PaymentsService.ChangeState;
 using SC.Internship.Common.Exceptions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -62,7 +61,7 @@ app.Use((context, next) =>
     context.Response.ContentType = "application/json";
     return context.Response.WriteAsJsonAsync(new ScResult
     {
-        Error = new ScError()
+        Error = new ScError
         {
             Message = "Unauthorized"
         }

@@ -1,7 +1,6 @@
-﻿namespace SpaceService
+﻿namespace SpaceService;
+
+public class SpaceResponse
 {
-    public class SpaceResponse
-    {
-        public bool Exists { get; set; }
-    }
+    public bool Exists { get; set; }
 }
