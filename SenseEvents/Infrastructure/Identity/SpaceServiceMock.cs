@@ -1,4 +1,6 @@
-﻿namespace SenseEvents.Infrastructure.Identity;
+﻿using SenseEvents.Infrastructure.Services.Spaces;
+
+namespace SenseEvents.Infrastructure.Identity;
 
 public class SpaceServiceMock : ISpaceService
 {

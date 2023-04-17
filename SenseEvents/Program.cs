@@ -13,6 +13,7 @@ using Polly.Extensions.Http;
 using SenseEvents.Infrastructure.Mapping;
 using SenseEvents.Infrastructure.Services;
 using SenseEvents.Infrastructure.Services.Images;
+using SenseEvents.Infrastructure.Services.Spaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -60,7 +61,6 @@ builder.Services.Configure<ServiceOptions>(builder.Configuration.GetSection(Serv
 builder.Services.Configure<EventsMongoOptions>(builder.Configuration.GetSection(EventsMongoOptions.ConfigSection));
 builder.Services.AddSingleton<IGuidService, GuidService>();
 builder.Services.AddSingleton<IEventsService, EventsService>();
-builder.Services.AddTransient<ISpaceService, SpaceServiceMock>();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: "AllowAny", policy =>
@@ -70,6 +70,11 @@ builder.Services.AddCors(options =>
     });
 });
 builder.Services.AddHttpClient<IImageService, ImageHttpService>()
+    .AddPolicyHandler(
+        HttpPolicyExtensions
+            .HandleTransientHttpError()
+            .WaitAndRetryAsync(3, (attempt) => TimeSpan.FromSeconds(10)));
+builder.Services.AddHttpClient<ISpaceService, SpaceHttpService>()
     .AddPolicyHandler(
         HttpPolicyExtensions
             .HandleTransientHttpError()

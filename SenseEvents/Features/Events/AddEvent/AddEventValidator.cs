@@ -1,8 +1,8 @@
 ﻿using FluentValidation;
 using JetBrains.Annotations;
-using SenseEvents.Infrastructure.Identity;
 using SenseEvents.Infrastructure.Services;
 using SenseEvents.Infrastructure.Services.Images;
+using SenseEvents.Infrastructure.Services.Spaces;
 
 namespace SenseEvents.Features.Events.AddEvent;
 

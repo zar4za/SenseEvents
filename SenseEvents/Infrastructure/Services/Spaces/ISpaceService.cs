@@ -1,4 +1,4 @@
-﻿namespace SenseEvents.Infrastructure.Identity;
+﻿namespace SenseEvents.Infrastructure.Services.Spaces;
 
 public interface ISpaceService
 {
