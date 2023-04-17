@@ -69,4 +69,9 @@ public class Event
     /// </summary>
     [UsedImplicitly]
     public bool CanIssueTicket => Tickets.Count() < MaxTickets;
+
+    /// <summary>
+    /// Стоимость билета
+    /// </summary>
+    public decimal TicketPrice { get; set; }
 }

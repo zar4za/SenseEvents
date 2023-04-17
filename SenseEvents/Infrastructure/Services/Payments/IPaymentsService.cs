@@ -5,10 +5,10 @@ namespace SenseEvents.Infrastructure.Services.Payments
 {
     public interface IPaymentsService
     {
-        Payment Create(AddPaymentCommand command);
+        Task<Payment> Create(AddPaymentCommand command);
 
-        Payment Confirm(Guid id);
+        Task<Payment> Confirm(Guid id);
 
-        Payment Cancel (Guid id);
+        Task<Payment> Cancel (Guid id);
     }
 }

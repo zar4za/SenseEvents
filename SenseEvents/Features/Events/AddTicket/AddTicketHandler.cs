@@ -1,6 +1,9 @@
 ﻿using JetBrains.Annotations;
 using MediatR;
+using PaymentsService.AddPayment;
+using SC.Internship.Common.Exceptions;
 using SenseEvents.Infrastructure.Identity;
+using SenseEvents.Infrastructure.Services.Payments;
 
 namespace SenseEvents.Features.Events.AddTicket;
 
@@ -9,26 +12,43 @@ public class AddTicketHandler : IRequestHandler<AddTicketCommand, AddTicketRespo
 {
     private readonly IGuidService _guidService;
     private readonly IEventsService _eventsService;
+    private readonly IPaymentsService _paymentsService;
 
-    public AddTicketHandler(IGuidService guidService, IEventsService eventsService)
+    public AddTicketHandler(IGuidService guidService, IEventsService eventsService, IPaymentsService paymentsService)
     {
         _guidService = guidService;
         _eventsService = eventsService;
+        _paymentsService = paymentsService;
     }
 
     public async Task<AddTicketResponse> Handle(AddTicketCommand request, CancellationToken cancellationToken)
     {
-        var ticket = new Ticket
+        var plannedEvent = await _eventsService.GetEvent(request.EventId);
+        var payment = await _paymentsService.Create(new AddPaymentCommand
         {
-            Id = _guidService.GetNewId(),
-            OwnerId = request.OwnerId
-        };
+            Amount = plannedEvent.TicketPrice,
+            Description = $"Ticket for {plannedEvent.Name}"
+        });
 
-        await _eventsService.AddTicket(request.EventId, ticket);
-
-        return new AddTicketResponse
+        try
         {
-            Ticket = ticket
-        };
+            var ticket = await _eventsService.AddTicket(plannedEvent.Id, new Ticket
+            {
+                Id = _guidService.GetNewId(),
+                OwnerId = request.OwnerId
+            });
+
+            await _paymentsService.Confirm(payment.Id);
+
+            return new AddTicketResponse
+            {
+                Ticket = ticket
+            };
+        }
+        catch
+        {
+            await _paymentsService.Cancel(payment.Id);
+            throw new ScException("Failed to buy ticket");
+        }
     }
 }

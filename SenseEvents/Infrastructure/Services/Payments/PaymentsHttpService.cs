@@ -16,27 +16,27 @@ public class PaymentsHttpService : IPaymentsService
         _options = options.Value;
     }
 
-    public Payment Create(AddPaymentCommand command)
+    public async Task<Payment> Create(AddPaymentCommand command)
     {
         var uri = _options.PaymentsServiceUrl + "/api/payments";
-        var response = _httpClient.PostAsync(uri, JsonContent.Create(command)).Result;
-        var payment = JsonSerializer.Deserialize<Payment>(response.Content.ReadAsStream());
+        var response = await _httpClient.PostAsync(uri, JsonContent.Create(command));
+        var payment = JsonSerializer.Deserialize<Payment>(await response.Content.ReadAsStreamAsync());
         return payment!;
     }
 
-    public Payment Confirm(Guid id)
+    public async Task<Payment> Confirm(Guid id)
     {
         var uri = _options.PaymentsServiceUrl + $"/api/payments/{id}/confirm";
-        var response = _httpClient.PutAsync(uri, null).Result;
-        var payment = JsonSerializer.Deserialize<Payment>(response.Content.ReadAsStream());
+        var response = await _httpClient.PutAsync(uri, null);
+        var payment = JsonSerializer.Deserialize<Payment>(await response.Content.ReadAsStreamAsync());
         return payment!;
     }
 
-    public Payment Cancel(Guid id)
+    public async Task<Payment> Cancel(Guid id)
     {
         var uri = _options.PaymentsServiceUrl + $"/api/payments/{id}/cancel";
-        var response = _httpClient.PutAsync(uri, null).Result;
-        var payment = JsonSerializer.Deserialize<Payment>(response.Content.ReadAsStream());
+        var response = await _httpClient.PutAsync(uri, null);
+        var payment = JsonSerializer.Deserialize<Payment>(await response.Content.ReadAsStreamAsync());
         return payment!;
     }
 }
