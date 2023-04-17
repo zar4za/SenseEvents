@@ -13,6 +13,7 @@ using Polly.Extensions.Http;
 using SenseEvents.Infrastructure.Mapping;
 using SenseEvents.Infrastructure.Services;
 using SenseEvents.Infrastructure.Services.Images;
+using SenseEvents.Infrastructure.Services.Payments;
 using SenseEvents.Infrastructure.Services.Spaces;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -75,6 +76,11 @@ builder.Services.AddHttpClient<IImageService, ImageHttpService>()
             .HandleTransientHttpError()
             .WaitAndRetryAsync(3, (attempt) => TimeSpan.FromSeconds(10)));
 builder.Services.AddHttpClient<ISpaceService, SpaceHttpService>()
+    .AddPolicyHandler(
+        HttpPolicyExtensions
+            .HandleTransientHttpError()
+            .WaitAndRetryAsync(3, (attempt) => TimeSpan.FromSeconds(10)));
+builder.Services.AddHttpClient<IPaymentsService, PaymentsHttpService>()
     .AddPolicyHandler(
         HttpPolicyExtensions
             .HandleTransientHttpError()
