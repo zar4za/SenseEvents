@@ -52,6 +52,7 @@ builder.Services.AddSwaggerGen(options =>
         }
     });
 });
+builder.Services.Configure<ServiceOptions>(builder.Configuration.GetSection(ServiceOptions.ConfigSection));
 builder.Services.Configure<EventsMongoOptions>(builder.Configuration.GetSection(EventsMongoOptions.ConfigSection));
 builder.Services.AddSingleton<IGuidService, GuidService>();
 builder.Services.AddSingleton<IEventsService, EventsService>();
