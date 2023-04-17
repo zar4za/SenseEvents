@@ -8,7 +8,11 @@ using SenseEvents.Infrastructure.Identity;
 using SenseEvents.Infrastructure.Validation;
 using System.Reflection;
 using System.Text;
+using Polly;
+using Polly.Extensions.Http;
 using SenseEvents.Infrastructure.Mapping;
+using SenseEvents.Infrastructure.Services;
+using SenseEvents.Infrastructure.Services.Images;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -56,7 +60,6 @@ builder.Services.Configure<ServiceOptions>(builder.Configuration.GetSection(Serv
 builder.Services.Configure<EventsMongoOptions>(builder.Configuration.GetSection(EventsMongoOptions.ConfigSection));
 builder.Services.AddSingleton<IGuidService, GuidService>();
 builder.Services.AddSingleton<IEventsService, EventsService>();
-builder.Services.AddTransient<IImageService, ImageServiceMock>();
 builder.Services.AddTransient<ISpaceService, SpaceServiceMock>();
 builder.Services.AddCors(options =>
 {
@@ -66,6 +69,11 @@ builder.Services.AddCors(options =>
         policy.AllowAnyHeader();
     });
 });
+builder.Services.AddHttpClient<IImageService, ImageHttpService>()
+    .AddPolicyHandler(
+        HttpPolicyExtensions
+            .HandleTransientHttpError()
+            .WaitAndRetryAsync(3, (attempt) => TimeSpan.FromSeconds(10)));
 
 var authOptions = builder.Configuration.GetSection(AuthOptions.ConfigSection).Get<AuthOptions>()!;
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
