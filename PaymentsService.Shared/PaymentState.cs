@@ -1,4 +1,4 @@
-﻿namespace PaymentsService;
+﻿namespace PaymentsService.Shared;
 
 public enum PaymentState
 {

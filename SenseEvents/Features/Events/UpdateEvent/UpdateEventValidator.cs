@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
 using JetBrains.Annotations;
-using SenseEvents.Infrastructure.Services;
 using SenseEvents.Infrastructure.Services.Images;
 using SenseEvents.Infrastructure.Services.Spaces;
 

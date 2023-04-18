@@ -1,6 +1,6 @@
 ﻿using JetBrains.Annotations;
 using MediatR;
-using PaymentsService.AddPayment;
+using PaymentsService.Shared.AddPayment;
 using SC.Internship.Common.Exceptions;
 using SenseEvents.Infrastructure.Identity;
 using SenseEvents.Infrastructure.Services.Payments;

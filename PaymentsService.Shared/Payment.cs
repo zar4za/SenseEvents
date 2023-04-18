@@ -1,6 +1,6 @@
 ﻿using JetBrains.Annotations;
 
-namespace PaymentsService;
+namespace PaymentsService.Shared;
 
 public class Payment
 {

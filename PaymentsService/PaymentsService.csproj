@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\PaymentsService.Shared\PaymentsService.Shared.csproj" />
     <ProjectReference Include="..\SC.Internship.Common\SC.Internship.Common\SC.Internship.Common.csproj" />
   </ItemGroup>
 

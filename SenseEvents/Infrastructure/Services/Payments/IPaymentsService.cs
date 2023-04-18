@@ -1,5 +1,5 @@
-﻿using PaymentsService;
-using PaymentsService.AddPayment;
+﻿using PaymentsService.Shared;
+using PaymentsService.Shared.AddPayment;
 
 namespace SenseEvents.Infrastructure.Services.Payments
 {
