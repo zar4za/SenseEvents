@@ -17,7 +17,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpaceService", "SpaceServic
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentsService", "PaymentsService\PaymentsService.csproj", "{946AC2C1-7D17-4539-BA6E-95CE3F765C1C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentsService.Shared", "PaymentsService.Shared\PaymentsService.Shared.csproj", "{1C54D74C-6FDF-426A-99D6-230C5179F0BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentsService.Shared", "PaymentsService.Shared\PaymentsService.Shared.csproj", "{1C54D74C-6FDF-426A-99D6-230C5179F0BA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Элементы решения", "Элементы решения", "{19CBB15D-0FFA-40D4-8F48-62811675A479}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

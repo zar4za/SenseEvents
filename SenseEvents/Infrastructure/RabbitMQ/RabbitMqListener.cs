@@ -34,9 +34,10 @@ public class RabbitMqListener : BackgroundService
         stoppingToken.ThrowIfCancellationRequested();
 
         var consumer = new EventingBasicConsumer(_channel);
+
         consumer.Received += (_, args) =>
         {
-            var type = Enum.Parse<EventType>(args.RoutingKey);
+            var type = Enum.Parse<EventType>(args.BasicProperties.Type);
             // ReSharper disable once SwitchExpressionHandlesSomeKnownEnumValuesWithExceptionInDefault
             IEvent newEvent = type switch
             {
@@ -49,8 +50,14 @@ public class RabbitMqListener : BackgroundService
             _channel.BasicAck(args.DeliveryTag, false);
         };
 
-        _channel.BasicConsume(_options.Queue, false, consumer);
+        _channel.BasicConsume(_options.Queue, true, consumer);
 
         return Task.CompletedTask;
+    }
+    
+    public override void Dispose()
+    {
+        _channel.Close();
+        base.Dispose();
     }
 }

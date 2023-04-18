@@ -22,7 +22,12 @@ public class RabbitBus : IBus
     {
         await Task.Run(() =>
         {
-            _model.QueueDeclare(_options.Queue);
+            _model.QueueDeclare(
+                queue: _options.Queue,
+                durable: false, 
+                exclusive: false, 
+                autoDelete: false, 
+                arguments: null);
 
             var body = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(newEvent));
 
