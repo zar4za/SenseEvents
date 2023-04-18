@@ -1,7 +1,6 @@
-﻿namespace SenseEvents.Infrastructure.Services.Images
+﻿namespace SenseEvents.Infrastructure.Services.Images;
+
+public class ImageResponse
 {
-    public class ImageResponse
-    {
-        public bool Exists { get; set; }
-    }
+    public bool Exists { get; set; }
 }
