@@ -14,6 +14,7 @@ services:
       - "Services:ImageServiceUrl=http://images/api/images"
       - "Services:SpaceServiceUrl=http://spaces/api/spaces"
       - "Services:PaymentsServiceUrl=http://payments/api/payments"
+      - "RabbitMQ:Host=http://rabbit"
     ports:
       - "8080:80"
     links:
@@ -38,6 +39,11 @@ services:
       dockerfile: PaymentsService/Dockerfile
     ports:
       - "5004:80"
+  rabbit: 
+    image: rabbitmq:3.11-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
   mongo:
     image: mongo:6.0.5
     environment:            

@@ -7,9 +7,11 @@ public class SpaceHttpService : ISpaceService
 {
     private readonly HttpClient _httpClient;
     private readonly ServiceOptions _options;
+    private readonly ILogger<SpaceHttpService> _logger;
 
-    public SpaceHttpService(HttpClient client, IOptions<ServiceOptions> options)
+    public SpaceHttpService(ILogger<SpaceHttpService> logger, HttpClient client, IOptions<ServiceOptions> options)
     {
+        _logger = logger;
         _httpClient = client;
         _options = options.Value;
     }
@@ -18,6 +20,7 @@ public class SpaceHttpService : ISpaceService
     {
         var uri = _options.SpaceServiceUrl + $"/{id}";
         _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(_options.ApiToken);
+        _logger.LogInformation($"Sending request to {uri}");
         var response = _httpClient.GetFromJsonAsync<SpaceResponse>(uri).Result; 
         return response?.Exists == true;
     }
