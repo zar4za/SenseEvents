@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
-using PaymentsService.AddPayment;
+using PaymentsService.Shared;
+using PaymentsService.Shared.AddPayment;
 
 namespace PaymentsService;
 

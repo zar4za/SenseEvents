@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Options;
-using PaymentsService;
-using PaymentsService.AddPayment;
 using System.Text.Json;
+using PaymentsService.Shared;
+using PaymentsService.Shared.AddPayment;
 
 namespace SenseEvents.Infrastructure.Services.Payments;
 

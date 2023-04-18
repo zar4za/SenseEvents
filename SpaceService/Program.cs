@@ -11,7 +11,7 @@ app.UseSwagger();
 app.UseSwaggerUI();
 
 // ReSharper disable once RouteTemplates.RouteParameterIsNotPassedToMethod
-app.MapGet("/api/images/{id:guid}", ([FromRoute] Guid id) => new SpaceResponse
+app.MapGet("/api/spaces/{id:guid}", ([FromRoute] Guid id) => new SpaceResponse
     {
         Exists = true
     }).WithOpenApi()

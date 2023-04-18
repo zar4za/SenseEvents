@@ -1,8 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
-using PaymentsService.AddPayment;
 using SC.Internship.Common.ScResult;
 using AutoMapper;
 using PaymentsService;
+using PaymentsService.Shared;
+using PaymentsService.Shared.AddPayment;
 using SC.Internship.Common.Exceptions;
 
 var builder = WebApplication.CreateBuilder(args);

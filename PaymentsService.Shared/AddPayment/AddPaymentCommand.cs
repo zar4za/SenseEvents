@@ -1,6 +1,6 @@
 ﻿using JetBrains.Annotations;
 
-namespace PaymentsService.AddPayment;
+namespace PaymentsService.Shared.AddPayment;
 
 public class AddPaymentCommand
 {
