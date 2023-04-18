@@ -74,17 +74,17 @@ builder.Services.AddHttpClient<IImageService, ImageHttpService>()
     .AddPolicyHandler(
         HttpPolicyExtensions
             .HandleTransientHttpError()
-            .WaitAndRetryAsync(3, attempt => TimeSpan.FromSeconds(10)));
+            .WaitAndRetryAsync(3, _ => TimeSpan.FromSeconds(10)));
 builder.Services.AddHttpClient<ISpaceService, SpaceHttpService>()
     .AddPolicyHandler(
         HttpPolicyExtensions
             .HandleTransientHttpError()
-            .WaitAndRetryAsync(3, attempt => TimeSpan.FromSeconds(10)));
+            .WaitAndRetryAsync(3, _ => TimeSpan.FromSeconds(10)));
 builder.Services.AddHttpClient<IPaymentsService, PaymentsHttpService>()
     .AddPolicyHandler(
         HttpPolicyExtensions
             .HandleTransientHttpError()
-            .WaitAndRetryAsync(3, attempt => TimeSpan.FromSeconds(10)));
+            .WaitAndRetryAsync(3, _ => TimeSpan.FromSeconds(10)));
 
 var authOptions = builder.Configuration.GetSection(AuthOptions.ConfigSection).Get<AuthOptions>()!;
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

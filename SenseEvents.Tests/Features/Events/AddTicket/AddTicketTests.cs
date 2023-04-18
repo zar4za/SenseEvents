@@ -46,7 +46,7 @@ internal class AddTicketTests
             .Setup(x => x.AddTicket(eventId, ticket))
             .ReturnsAsync(ticket);
 
-        var handler = new AddTicketHandler(_guidService, eventsService.Object, null);
+        var handler = new AddTicketHandler(_guidService, eventsService.Object, null!);
 
 
         var result = await handler.Handle(command, CancellationToken.None);

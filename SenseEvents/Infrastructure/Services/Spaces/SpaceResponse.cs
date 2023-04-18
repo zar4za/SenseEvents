@@ -1,7 +1,6 @@
-﻿namespace SenseEvents.Infrastructure.Services.Spaces
+﻿namespace SenseEvents.Infrastructure.Services.Spaces;
+
+public class SpaceResponse
 {
-    public class SpaceResponse
-    {
-        public bool Exists { get; set; }
-    }
+    public bool Exists { get; set; }
 }
