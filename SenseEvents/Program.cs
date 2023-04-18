@@ -10,7 +10,9 @@ using System.Reflection;
 using System.Text;
 using Polly;
 using Polly.Extensions.Http;
+using RabbitMQ.Client;
 using SenseEvents.Infrastructure.Mapping;
+using SenseEvents.Infrastructure.RabbitMQ;
 using SenseEvents.Infrastructure.Services;
 using SenseEvents.Infrastructure.Services.Images;
 using SenseEvents.Infrastructure.Services.Payments;
@@ -70,6 +72,14 @@ builder.Services.AddCors(options =>
         policy.AllowAnyHeader();
     });
 });
+
+var rabbitMqOptions = builder.Configuration.GetSection(RabbitMqOptions.ConfigSection).Get<RabbitMqOptions>();
+builder.Services.Configure<RabbitMqOptions>(builder.Configuration.GetSection(RabbitMqOptions.ConfigSection));
+builder.Services.AddSingleton<IConnectionFactory>(new ConnectionFactory
+{
+    HostName = rabbitMqOptions!.Host
+});
+builder.Services.AddTransient<IBus, RabbitBus>();
 builder.Services.AddHttpClient<IImageService, ImageHttpService>()
     .AddPolicyHandler(
         HttpPolicyExtensions
@@ -111,6 +121,7 @@ builder.Services.AddMediatR(options =>
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
 builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly, ServiceLifetime.Transient);
 builder.Services.AddTransient<ValidationExceptionHandlingMiddleware>();
+builder.Services.AddHostedService<RabbitMqListener>();
 var app = builder.Build();
 
 app.UseSwagger();
