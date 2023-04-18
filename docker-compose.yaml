@@ -8,19 +8,23 @@ services:
     build: 
       context: .
       dockerfile: SenseEvents/Dockerfile
+    depends_on:
+      - mongo
+      - rabbit
     environment:
       - "Mongo:ConnectionString=mongodb://root:foobar@mongo:27017"
       - "Services:ApiToken=testtoken"
       - "Services:ImageServiceUrl=http://images/api/images"
       - "Services:SpaceServiceUrl=http://spaces/api/spaces"
       - "Services:PaymentsServiceUrl=http://payments/api/payments"
-      - "RabbitMQ:Host=http://rabbit"
+      - "RabbitMQ:Host=rabbit"
     ports:
       - "8080:80"
     links:
       - "images:images"
       - "spaces:spaces"
       - "payments:payments"
+      - "rabbit:rabbit"
   images:
     build:
       context: .
