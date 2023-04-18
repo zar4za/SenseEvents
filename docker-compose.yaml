@@ -10,8 +10,34 @@ services:
       dockerfile: SenseEvents/Dockerfile
     environment:
       - "Mongo:ConnectionString=mongodb://root:foobar@mongo:27017"
+      - "Services:ApiToken=testtoken"
+      - "Services:ImageServiceUrl=http://images/api/images"
+      - "Services:SpaceServiceUrl=http://spaces/api/spaces"
+      - "Services:PaymentsServiceUrl=http://payments/api/payments"
     ports:
       - "8080:80"
+    links:
+      - "images:images"
+      - "spaces:spaces"
+      - "payments:payments"
+  images:
+    build:
+      context: .
+      dockerfile: ImageService/Dockerfile
+    ports:
+      - "5002:80"
+  spaces:
+    build:
+      context: .
+      dockerfile: SpaceService/Dockerfile
+    ports:
+      - "5003:80"
+  payments:
+    build: 
+      context: .
+      dockerfile: PaymentsService/Dockerfile
+    ports:
+      - "5004:80"
   mongo:
     image: mongo:6.0.5
     environment:            
