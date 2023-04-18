@@ -34,7 +34,7 @@ public class EventsController : ControllerBase
     [ProducesResponseType(statusCode: 401)]
     public async Task<IActionResult> GetEvents()
     {
-        _logger.LogInformation($"Received GET /api/events");
+        _logger.LogInformation("Received GET /api/events");
         var events = await _mediator.Send(new GetEventsQuery());
         return Ok(events);
     }
@@ -50,7 +50,7 @@ public class EventsController : ControllerBase
     [ProducesResponseType(statusCode: 401)]
     public async Task<IActionResult> AddEvent([FromBody] AddEventCommand command)
     {
-        _logger.LogInformation($"Received POST /api/events");
+        _logger.LogInformation("Received POST /api/events");
         var eventId = await _mediator.Send(command);
         return Ok(eventId);
     }
@@ -70,7 +70,7 @@ public class EventsController : ControllerBase
     public async Task<IActionResult> UpdateEvent(Guid id, [FromBody] UpdateEventCommand command)
     {
         command.Id = id;
-        _logger.LogInformation($"Received PUT /api/events");
+        _logger.LogInformation("Received PUT /api/events");
         var success = await _mediator.Send(command);
         return Ok(success);
     }
@@ -88,7 +88,7 @@ public class EventsController : ControllerBase
     // ReSharper disable once RouteTemplates.MethodMissingRouteParameters
     public async Task<IActionResult> DeleteEvent([FromQuery] DeleteEventCommand command)
     {
-        _logger.LogInformation($"Received DELETE /api/events");
+        _logger.LogInformation("Received DELETE /api/events");
         var success = await _mediator.Send(command);
         return Ok(success);
     }
