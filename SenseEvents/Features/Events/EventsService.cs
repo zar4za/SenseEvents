@@ -76,4 +76,23 @@ public class EventsService : IEventsService
         var result = await _events.UpdateOneAsync(filter, update);
         return result.IsAcknowledged;
     }
+
+    public async Task<bool> UpdateImage(Guid imageId, Guid? newId)
+    {
+        var update = Builders<Event>.Update
+            .Set(x => x.ImageId, newId);
+
+        var filter = Builders<Event>.Filter.Where(x => x.ImageId == imageId);
+        var result = await _events.UpdateManyAsync(filter, update);
+
+        return result.IsAcknowledged;
+    }
+
+    public async Task<bool> DeleteEventsInSpace(Guid spaceId)
+    {
+        var filter = Builders<Event>.Filter.Where(x => x.SpaceId == spaceId);
+        var result = await _events.DeleteOneAsync(filter);
+
+        return result.IsAcknowledged;
+    }
 }
