@@ -6,9 +6,7 @@ using SenseEvents.Features.Events.AddEvent;
 using SenseEvents.Features.Events.DeleteEvent;
 using SenseEvents.Features.Events.UpdateEvent;
 using SenseEvents.Infrastructure.RabbitMQ.Events;
-using System.ComponentModel.DataAnnotations;
 using SC.Internship.Common.Exceptions;
-using ValidationException = FluentValidation.ValidationException;
 
 namespace SenseEvents.Infrastructure.Mapping;
 
