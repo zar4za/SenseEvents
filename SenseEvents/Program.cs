@@ -8,6 +8,7 @@ using SenseEvents.Infrastructure.Identity;
 using SenseEvents.Infrastructure.Validation;
 using System.Reflection;
 using System.Text;
+using Microsoft.AspNetCore.HttpLogging;
 using Polly;
 using Polly.Extensions.Http;
 using RabbitMQ.Client;
@@ -20,9 +21,12 @@ using SenseEvents.Infrastructure.Services.Spaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddHttpLogging(options =>
+{
+    options.LoggingFields = HttpLoggingFields.All;
+});
 builder.Services.Configure<RouteOptions>(options =>
 {
     options.LowercaseUrls = true;
@@ -126,7 +130,7 @@ var app = builder.Build();
 
 app.UseSwagger();
 app.UseSwaggerUI();
-
+app.UseHttpLogging();
 app.UseCors("AllowAny");
 app.UseMiddleware<ValidationExceptionHandlingMiddleware>();
 app.UseAuthentication();

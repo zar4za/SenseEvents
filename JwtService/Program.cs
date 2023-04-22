@@ -1,13 +1,12 @@
 using JwtService;
+using Microsoft.AspNetCore.HttpLogging;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddHttpLogging(options => options.LoggingFields = HttpLoggingFields.All);
 builder.Services.Configure<AuthOptions>(builder.Configuration.GetSection(AuthOptions.ConfigSection));
 builder.Services.AddCors(options =>
 {

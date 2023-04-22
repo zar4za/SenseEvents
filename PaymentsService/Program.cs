@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SC.Internship.Common.ScResult;
 using AutoMapper;
+using Microsoft.AspNetCore.HttpLogging;
 using PaymentsService;
 using PaymentsService.Shared;
 using PaymentsService.Shared.AddPayment;
@@ -9,11 +10,13 @@ using SC.Internship.Common.Exceptions;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddHttpLogging(options => options.LoggingFields = HttpLoggingFields.All);
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 var app = builder.Build();
 app.UseSwagger(); 
 app.UseSwaggerUI();
+app.UseHttpLogging();
 
 var payments = new List<Payment>();
 
