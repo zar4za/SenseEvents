@@ -1,9 +1,14 @@
 ﻿using AutoMapper;
+using FluentValidation;
+using SC.Internship.Common.ScResult;
 using SenseEvents.Features.Events;
 using SenseEvents.Features.Events.AddEvent;
 using SenseEvents.Features.Events.DeleteEvent;
 using SenseEvents.Features.Events.UpdateEvent;
 using SenseEvents.Infrastructure.RabbitMQ.Events;
+using System.ComponentModel.DataAnnotations;
+using SC.Internship.Common.Exceptions;
+using ValidationException = FluentValidation.ValidationException;
 
 namespace SenseEvents.Infrastructure.Mapping;
 
@@ -14,7 +19,7 @@ public class MappingProfile : Profile
         CreateMap<AddEventCommand, Event>()
             .ForMember(
                 destinationMember: dest => dest.Tickets,
-                memberOptions: o => o.MapFrom(
+                memberOptions: opts => opts.MapFrom(
                     mapExpression: _ => new List<Ticket>()));
 
         CreateMap<UpdateEventCommand, Event>();
@@ -22,7 +27,25 @@ public class MappingProfile : Profile
         CreateMap<DeleteEventCommand, EventDeleteEvent>()
             .ForMember(
                 destinationMember: dest => dest.DeletedEventId,
-                memberOptions: o => o.MapFrom(
+                memberOptions: opts => opts.MapFrom(
                     mapExpression: src => src.Id));
+
+        CreateMap<ValidationException, ScError>()
+            .ForMember(
+                destinationMember: dest => dest.Message,
+                memberOptions: opts => opts.MapFrom(
+                    mapExpression: src => src.Message))
+            .ForMember(
+                destinationMember: dest => dest.ModelState,
+                memberOptions: opts => opts.MapFrom(
+                    mapExpression: src => src.Errors.ToDictionary(
+                        x => x.PropertyName,
+                        x => src.Errors
+                            .Where(y => x.PropertyName == y.PropertyName)
+                            .Select(y => y.ErrorMessage)
+                            .ToList())));
+
+        CreateMap<ScException, ScError>();
+        CreateMap<InvalidOperationException, ScError>();
     }
 }
