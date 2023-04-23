@@ -59,6 +59,7 @@ public class Event
     /// <summary>
     /// Коллекция выданных билетов на это мероприятие.
     /// </summary>
+    [JsonIgnore]
     public IEnumerable<Ticket> Tickets
     {
         get => _tickets;
