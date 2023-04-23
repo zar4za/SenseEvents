@@ -45,7 +45,7 @@ public class Event
     /// Идентификатор картинки для шапки мероприятия.
     /// </summary>
     [UsedImplicitly] // json serialization
-    public Guid ImageId { get; set; }
+    public Guid? ImageId { get; set; }
 
     /// <summary>
     /// Идентификатор пространства, в котором будет проходить мероприятие.

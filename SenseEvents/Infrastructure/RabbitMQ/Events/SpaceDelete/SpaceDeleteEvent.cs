@@ -1,10 +1,6 @@
-﻿using MediatR;
+﻿namespace SenseEvents.Infrastructure.RabbitMQ.Events.SpaceDelete;
 
-namespace SenseEvents.Infrastructure.RabbitMQ.Events.SpaceDelete;
-
-public class SpaceDeleteEvent : IEvent, IRequest
+public class SpaceDeleteEvent
 {
-    public EventType Type => EventType.SpaceDelete;
-
     public Guid SpaceId { get; set; }
 }

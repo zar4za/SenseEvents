@@ -1,10 +1,6 @@
-﻿using MediatR;
+﻿namespace SenseEvents.Infrastructure.RabbitMQ.Events.ImageDelete;
 
-namespace SenseEvents.Infrastructure.RabbitMQ.Events.ImageDelete;
-
-public class ImageDeleteEvent : IEvent, IRequest
+public class ImageDeleteEvent
 {
-    public EventType Type => EventType.ImageDelete;
-
     public Guid ImageId { get; set; }
 }
