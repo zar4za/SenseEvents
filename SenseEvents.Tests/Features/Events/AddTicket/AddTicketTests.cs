@@ -1,5 +1,6 @@
 ﻿using SenseEvents.Features.Events;
-using SenseEvents.Features.Events.AddTicket;
+using SenseEvents.Features.Tickets;
+using SenseEvents.Features.Tickets.AddTicket;
 using SenseEvents.Infrastructure.Identity;
 
 namespace SenseEvents.Tests.Features.Events.AddTicket;

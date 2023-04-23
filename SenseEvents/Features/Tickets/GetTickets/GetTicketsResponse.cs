@@ -1,5 +1,4 @@
 ﻿using JetBrains.Annotations;
-using SenseEvents.Features.Tickets;
 
 namespace SenseEvents.Features.Tickets.GetTickets;
 
