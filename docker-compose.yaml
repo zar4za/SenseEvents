@@ -14,12 +14,12 @@ services:
     environment:
       - "Mongo:ConnectionString=mongodb://root:foobar@mongo:27017"
       - "Services:ApiToken=testtoken"
-      - "Services:ImageServiceUrl=http://images/api/images"
-      - "Services:SpaceServiceUrl=http://spaces/api/spaces"
-      - "Services:PaymentsServiceUrl=http://payments/api/payments"
+      - "Services:ImageServiceUrl=http://images:6000/api/images"
+      - "Services:SpaceServiceUrl=http://spaces:6000/api/spaces"
+      - "Services:PaymentsServiceUrl=http://payments:6000/api/payments"
       - "RabbitMQ:Host=rabbit"
     ports:
-      - "8080:80"
+      - "8080:6000"
     links:
       - "images:images"
       - "spaces:spaces"
@@ -30,19 +30,19 @@ services:
       context: .
       dockerfile: ImageService/Dockerfile
     ports:
-      - "5002:80"
+      - "5002:6000"
   spaces:
     build:
       context: .
       dockerfile: SpaceService/Dockerfile
     ports:
-      - "5003:80"
+      - "5003:6000"
   payments:
     build: 
       context: .
       dockerfile: PaymentsService/Dockerfile
     ports:
-      - "5004:80"
+      - "5004:6000"
   rabbit: 
     image: rabbitmq:3.11-management
     ports:
