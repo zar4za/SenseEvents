@@ -18,6 +18,7 @@ using SenseEvents.Infrastructure.Services;
 using SenseEvents.Infrastructure.Services.Images;
 using SenseEvents.Infrastructure.Services.Payments;
 using SenseEvents.Infrastructure.Services.Spaces;
+using System.Net.Http.Headers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -84,21 +85,22 @@ builder.Services.AddSingleton<IConnectionFactory>(new ConnectionFactory
     HostName = rabbitMqOptions!.Host
 });
 builder.Services.AddTransient<IBus, RabbitBus>();
-builder.Services.AddHttpClient<IImageService, ImageHttpService>()
+
+builder.Services.AddHttpClient(ServiceOptions.HttpClientName)
+    .ConfigureHttpClient(options =>
+    {
+        options.DefaultRequestHeaders.Authorization =
+            new AuthenticationHeaderValue(builder.Configuration["Services:ApiToken"]!);
+    })
     .AddPolicyHandler(
         HttpPolicyExtensions
             .HandleTransientHttpError()
             .WaitAndRetryAsync(3, _ => TimeSpan.FromSeconds(10)));
-builder.Services.AddHttpClient<ISpaceService, SpaceHttpService>()
-    .AddPolicyHandler(
-        HttpPolicyExtensions
-            .HandleTransientHttpError()
-            .WaitAndRetryAsync(3, _ => TimeSpan.FromSeconds(10)));
-builder.Services.AddHttpClient<IPaymentsService, PaymentsHttpService>()
-    .AddPolicyHandler(
-        HttpPolicyExtensions
-            .HandleTransientHttpError()
-            .WaitAndRetryAsync(3, _ => TimeSpan.FromSeconds(10)));
+
+builder.Services.AddTransient<IImageService, ImageHttpService>();
+builder.Services.AddTransient<ISpaceService, SpaceHttpService>();
+builder.Services.AddTransient<IPaymentsService, PaymentsHttpService>();
+
 
 var authOptions = builder.Configuration.GetSection(AuthOptions.ConfigSection).Get<AuthOptions>()!;
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -126,8 +128,8 @@ builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBeh
 builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly, ServiceLifetime.Transient);
 builder.Services.AddTransient<ValidationExceptionHandlingMiddleware>();
 builder.Services.AddHostedService<RabbitMqListener>();
-var app = builder.Build();
 
+var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 app.UseHttpLogging();
