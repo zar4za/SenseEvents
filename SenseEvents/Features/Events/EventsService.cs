@@ -92,7 +92,7 @@ public class EventsService : IEventsService
     public async Task<bool> DeleteEventsInSpace(Guid spaceId)
     {
         var filter = Builders<Event>.Filter.Where(x => x.SpaceId == spaceId);
-        var result = await _events.DeleteOneAsync(filter);
+        var result = await _events.DeleteManyAsync(filter);
 
         return result.IsAcknowledged;
     }
