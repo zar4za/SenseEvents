@@ -54,5 +54,6 @@ public class AddEventCommand : IRequest<AddEventResponse>
     /// <summary>
     /// Цена за билет на мероприятие
     /// </summary>
+    [UsedImplicitly] // json parsing 
     public decimal TicketPrice { get; init; }
 }
