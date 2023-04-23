@@ -3,11 +3,11 @@ using SenseEvents.Features.Events;
 
 namespace SenseEvents.Infrastructure.RabbitMQ.Events.SpaceDelete;
 
-public class SpaceDeleteConsumer : IConsumer<SpaceDeleteEvent>
+public class SpaceDeleteEventConsumer : IConsumer<SpaceDeleteEvent>
 {
     private readonly IEventsService _eventsService;
 
-    public SpaceDeleteConsumer(IEventsService eventsService)
+    public SpaceDeleteEventConsumer(IEventsService eventsService)
     {
         _eventsService = eventsService;
     }

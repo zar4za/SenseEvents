@@ -83,8 +83,8 @@ builder.Services.AddCors(options =>
 var rabbitMqOptions = builder.Configuration.GetSection(RabbitMqOptions.ConfigSection).Get<RabbitMqOptions>()!;
 builder.Services.AddMassTransit(options =>
 {
-    options.AddConsumer<ImageDeleteConsumer>();
-    options.AddConsumer<SpaceDeleteConsumer>();
+    options.AddConsumer<ImageDeleteEventConsumer>();
+    options.AddConsumer<SpaceDeleteEventConsumer>();
 
     options.UsingRabbitMq((ctx, cfg) =>
     {

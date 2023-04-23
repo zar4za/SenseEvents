@@ -3,11 +3,11 @@ using SenseEvents.Features.Events;
 
 namespace SenseEvents.Infrastructure.RabbitMQ.Events.ImageDelete;
 
-public class ImageDeleteConsumer : IConsumer<ImageDeleteEvent>
+public class ImageDeleteEventConsumer : IConsumer<ImageDeleteEvent>
 {
     private readonly IEventsService _eventsService;
 
-    public ImageDeleteConsumer(IEventsService eventsService)
+    public ImageDeleteEventConsumer(IEventsService eventsService)
     {
         _eventsService = eventsService;
     }
