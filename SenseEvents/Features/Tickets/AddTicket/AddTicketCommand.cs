@@ -2,7 +2,7 @@
 using JetBrains.Annotations;
 using MediatR;
 
-namespace SenseEvents.Features.Events.AddTicket;
+namespace SenseEvents.Features.Tickets.AddTicket;
 
 /// <summary>
 /// Модель запроса для выдачи билета на мероприятие.

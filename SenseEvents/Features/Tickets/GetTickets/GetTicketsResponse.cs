@@ -1,6 +1,7 @@
 ﻿using JetBrains.Annotations;
+using SenseEvents.Features.Tickets;
 
-namespace SenseEvents.Features.Events.GetTickets;
+namespace SenseEvents.Features.Tickets.GetTickets;
 
 /// <summary>
 /// Модель ответа на запрос всех билетов на мероприятие.

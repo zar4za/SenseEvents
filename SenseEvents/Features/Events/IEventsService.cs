@@ -1,4 +1,6 @@
-﻿namespace SenseEvents.Features.Events;
+﻿using SenseEvents.Features.Tickets;
+
+namespace SenseEvents.Features.Events;
 
 public interface IEventsService
 {

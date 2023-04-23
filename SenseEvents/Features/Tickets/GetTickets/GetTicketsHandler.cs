@@ -1,7 +1,8 @@
 ﻿using JetBrains.Annotations;
 using MediatR;
+using SenseEvents.Features.Events;
 
-namespace SenseEvents.Features.Events.GetTickets;
+namespace SenseEvents.Features.Tickets.GetTickets;
 
 [UsedImplicitly] // Mediator
 public class GetTicketsHandler : IRequestHandler<GetTicketsQuery, GetTicketsResponse>
