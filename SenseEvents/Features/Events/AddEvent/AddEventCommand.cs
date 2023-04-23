@@ -50,4 +50,9 @@ public class AddEventCommand : IRequest<AddEventResponse>
     /// </summary>
     [UsedImplicitly] // json parsing 
     public int? MaxTickets { get; init; }
+
+    /// <summary>
+    /// Цена за билет на мероприятие
+    /// </summary>
+    public decimal TicketPrice { get; init; }
 }
