@@ -26,6 +26,28 @@ docker compose up
 В открывшемся диалоговом окне надо вписать токен в формате `Bearer XXXXX...`.
 
 Сообщения в RabbitMQ отправляются через интерфейс, развернутый локально
-http://localhost:15672/#/queues/%2F/events
+http://localhost:15672/#/queues . Для каждого эвента существует выделенная очередь.
 
-Необходимо добавить property `type` со значением `SpaceDelete` или `ImageDelete`. В body сообщения нужно поместить json сообщение. Свойства именуются с большой буквы.
+Сообщения отправляются в следующем формате:
+```
+{
+	"messageType": [
+		"urn:message:NAMESPACE:TYPE"
+	,
+	"message": {
+		// Свойства самого контракта эвента
+	}
+}
+```
+
+Пример сообщения при удалении спейса:
+```
+{
+	"messageType": [
+		"urn:message:SenseEvents.Infrastructure.RabbitMQ.Events.SpaceDelete:SpaceDeleteEvent"
+	],
+	"message": { 
+		"SpaceId": "3fa85f64-5717-4562-b3fc-000000000000"
+	}
+}
+```
