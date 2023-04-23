@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using JetBrains.Annotations;
+using MassTransit;
 using MediatR;
-using SenseEvents.Infrastructure.RabbitMQ;
 using SenseEvents.Infrastructure.RabbitMQ.Events;
 
 namespace SenseEvents.Features.Events.DeleteEvent;
@@ -26,7 +26,7 @@ public class DeleteEventHandler : IRequestHandler<DeleteEventCommand, DeleteEven
 
         if (success)
         {
-            await _bus.SendAsync(_mapper.Map<EventDeleteEvent>(request));
+            await _bus.Publish(_mapper.Map<EventDeleteEvent>(request), cancellationToken);
         }
 
         return new DeleteEventResponse

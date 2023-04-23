@@ -1,24 +1,26 @@
 using FluentValidation;
+using MassTransit;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using SenseEvents.Features.Events;
-using SenseEvents.Infrastructure.Identity;
-using SenseEvents.Infrastructure.Validation;
-using System.Reflection;
-using System.Text;
-using Microsoft.AspNetCore.HttpLogging;
 using Polly;
 using Polly.Extensions.Http;
-using RabbitMQ.Client;
+using SenseEvents.Features.Events;
+using SenseEvents.Infrastructure.Identity;
 using SenseEvents.Infrastructure.Mapping;
 using SenseEvents.Infrastructure.RabbitMQ;
 using SenseEvents.Infrastructure.Services;
 using SenseEvents.Infrastructure.Services.Images;
 using SenseEvents.Infrastructure.Services.Payments;
 using SenseEvents.Infrastructure.Services.Spaces;
+using SenseEvents.Infrastructure.Validation;
 using System.Net.Http.Headers;
+using System.Reflection;
+using System.Text;
+using SenseEvents.Infrastructure.RabbitMQ.Events.ImageDelete;
+using SenseEvents.Infrastructure.RabbitMQ.Events.SpaceDelete;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -78,13 +80,23 @@ builder.Services.AddCors(options =>
     });
 });
 
-var rabbitMqOptions = builder.Configuration.GetSection(RabbitMqOptions.ConfigSection).Get<RabbitMqOptions>();
-builder.Services.Configure<RabbitMqOptions>(builder.Configuration.GetSection(RabbitMqOptions.ConfigSection));
-builder.Services.AddSingleton<IConnectionFactory>(new ConnectionFactory
+var rabbitMqOptions = builder.Configuration.GetSection(RabbitMqOptions.ConfigSection).Get<RabbitMqOptions>()!;
+builder.Services.AddMassTransit(options =>
 {
-    HostName = rabbitMqOptions!.Host
+    options.AddConsumer<ImageDeleteConsumer>();
+    options.AddConsumer<SpaceDeleteConsumer>();
+
+    options.UsingRabbitMq((ctx, cfg) =>
+    {
+        cfg.Host(rabbitMqOptions.Host, "/", host =>
+        {
+            host.Username(rabbitMqOptions.Username);
+            host.Password(rabbitMqOptions.Password);
+        });
+
+        cfg.ConfigureEndpoints(ctx);
+    });
 });
-builder.Services.AddTransient<IBus, RabbitBus>();
 
 builder.Services.AddHttpClient(ServiceOptions.HttpClientName)
     .ConfigureHttpClient(options =>
@@ -127,7 +139,6 @@ builder.Services.AddMediatR(options =>
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
 builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly, ServiceLifetime.Transient);
 builder.Services.AddTransient<ValidationExceptionHandlingMiddleware>();
-builder.Services.AddHostedService<RabbitMqListener>();
 
 var app = builder.Build();
 app.UseSwagger();
