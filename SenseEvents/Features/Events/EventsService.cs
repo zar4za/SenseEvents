@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
 using MongoDB.Driver;
+using SenseEvents.Features.Tickets;
 using SenseEvents.Infrastructure.Identity;
 
 namespace SenseEvents.Features.Events;

@@ -7,6 +7,7 @@ using SenseEvents.Features.Events.DeleteEvent;
 using SenseEvents.Features.Events.UpdateEvent;
 using SenseEvents.Infrastructure.RabbitMQ.Events;
 using SC.Internship.Common.Exceptions;
+using SenseEvents.Features.Tickets;
 
 namespace SenseEvents.Infrastructure.Mapping;
 

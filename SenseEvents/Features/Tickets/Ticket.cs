@@ -1,6 +1,6 @@
 ﻿using JetBrains.Annotations;
 
-namespace SenseEvents.Features.Events;
+namespace SenseEvents.Features.Tickets;
 
 /// <summary>
 /// Модель билета на мероприятие.

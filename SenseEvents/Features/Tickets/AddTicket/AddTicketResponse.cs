@@ -1,6 +1,7 @@
 ﻿using JetBrains.Annotations;
+using SenseEvents.Features.Tickets;
 
-namespace SenseEvents.Features.Events.AddTicket;
+namespace SenseEvents.Features.Tickets.AddTicket;
 
 /// <summary>
 /// Модель ответа на выдачу билета на мероприятие.

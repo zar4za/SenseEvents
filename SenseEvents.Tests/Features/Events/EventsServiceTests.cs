@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Options;
 using Mongo2Go;
 using SenseEvents.Features.Events;
+using SenseEvents.Features.Tickets;
 using SenseEvents.Infrastructure.Identity;
 
 namespace SenseEvents.Tests.Features.Events;

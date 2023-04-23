@@ -1,4 +1,5 @@
 ﻿using JetBrains.Annotations;
+using SenseEvents.Features.Tickets;
 using System.Text.Json.Serialization;
 
 namespace SenseEvents.Features.Events;

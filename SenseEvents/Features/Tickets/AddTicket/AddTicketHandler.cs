@@ -2,10 +2,11 @@
 using MediatR;
 using PaymentsService.Shared.AddPayment;
 using SC.Internship.Common.Exceptions;
+using SenseEvents.Features.Events;
 using SenseEvents.Infrastructure.Identity;
 using SenseEvents.Infrastructure.Services.Payments;
 
-namespace SenseEvents.Features.Events.AddTicket;
+namespace SenseEvents.Features.Tickets.AddTicket;
 
 [UsedImplicitly] //mediator
 public class AddTicketHandler : IRequestHandler<AddTicketCommand, AddTicketResponse>
