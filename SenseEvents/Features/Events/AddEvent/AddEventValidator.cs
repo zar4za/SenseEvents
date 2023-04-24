@@ -29,5 +29,9 @@ public class AddEventValidator : AbstractValidator<AddEventCommand>
             .NotEmpty()
             .Must(spaces.SpaceExists)
             .WithMessage(e => $"Изображения с Id '{e}' не существует.");
+
+        RuleFor(e => e.TicketPrice)
+            .NotEmpty()
+            .GreaterThanOrEqualTo(decimal.Zero);
     }
 }
